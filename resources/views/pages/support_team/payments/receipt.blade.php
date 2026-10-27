@@ -65,6 +65,12 @@
                    <td class="bold">CLASS:</td>
                    <td>{{ $sr->my_class->name }}</td>
                </tr>
+               @if($sr->my_parent)
+               <tr>
+                   <td class="bold">PARENT/GUARDIAN:</td>
+                   <td>{{ $sr->my_parent->name }}{{ $sr->my_parent->phone ? ' ('.$sr->my_parent->phone.')' : '' }}</td>
+               </tr>
+               @endif
            </table>
        </div>
         <div class="clear"></div>

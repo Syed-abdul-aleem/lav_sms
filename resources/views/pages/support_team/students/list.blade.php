@@ -32,6 +32,7 @@
                             <th>ADM_No</th>
                             <th>Section</th>
                             <th>Email</th>
+                            <th>Parent / Guardian</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -44,6 +45,7 @@
                                 <td>{{ $s->adm_no }}</td>
                                 <td>{{ $my_class->name.' '.$s->section->name }}</td>
                                 <td>{{ $s->user->email }}</td>
+                                <td>@if($s->my_parent){{ $s->my_parent->name }}<br><small class="text-muted">{{ $s->my_parent->phone }}</small>@else<span class="text-muted">—</span>@endif</td>
                                 <td class="text-center">
                                     <div class="list-icons">
                                         <div class="dropdown">
@@ -83,6 +85,7 @@
                                 <th>Name</th>
                                 <th>ADM_No</th>
                                 <th>Email</th>
+                                <th>Parent / Guardian</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -94,6 +97,7 @@
                                     <td>{{ $sr->user->name }}</td>
                                     <td>{{ $sr->adm_no }}</td>
                                     <td>{{ $sr->user->email }}</td>
+                                    <td>@if($sr->my_parent){{ $sr->my_parent->name }}<br><small class="text-muted">{{ $sr->my_parent->phone }}</small>@else<span class="text-muted">—</span>@endif</td>
                                     <td class="text-center">
                                         <div class="list-icons">
                                             <div class="dropdown">

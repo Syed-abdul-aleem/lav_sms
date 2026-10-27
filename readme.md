@@ -130,3 +130,15 @@ This copy was adapted for Vercel serverless deployment:
 - Writable Laravel storage, compiled views and the seeded SQLite demo database are copied to `/tmp` on cold start, because the Vercel filesystem is read-only
 - Demo login (seeded): Super Admin `cj@cj.com` / `cj` — see the full account table above
 - Note: Vercel demo data resets on cold start (SQLite in /tmp). For production use, connect a real MySQL/Postgres database.
+
+
+---
+
+## v2 additions (2026-10-27)
+- **Class Diary / Homework** module: teachers & admins add daily diary entries per class/section/subject; students see their own class diary, parents see their children's classes only.
+- **Staff Salaries / Payroll**: admins & accountants record salary payments (basic, allowances, deductions, partial payments, SAL- receipts), monthly totals, printable salary slips; every staff member gets a **My Salary** page. Reversals are Super-Admin only.
+- **Parent details everywhere**: student lists & profiles, payment invoices & receipts, and printed marksheets/report cards now show the parent/guardian name, phone, email and address.
+- **Seed fixes**: students are now linked to parents (parent logins show their children), staff records are created for all staff, demo contact numbers added.
+- **Responsive theme**: new `lav-responsive.css` (mobile tables scroll, 16px inputs, wrapping headers, print rules) + cleaned stray spaces in asset URLs that broke some links.
+- **Supabase / Postgres ready**: set `DATABASE_URL` (Supabase pooler) and the app uses Postgres automatically — full steps in **SUPABASE_GUIDE.md**. Without it, the bundled SQLite demo DB is used (resets on Vercel cold start).
+- **Security**: security-headers middleware, secure session cookies in production, built-in login throttling, role checks in every new controller (teachers edit only their own diary entries; salary slips are owner/admin/accountant only).

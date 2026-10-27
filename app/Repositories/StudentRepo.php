@@ -12,7 +12,7 @@ class StudentRepo {
 
     public function findStudentsByClass($class_id)
     {
-        return $this->activeStudents()->where(['my_class_id' => $class_id])->with(['my_class', 'user'])->get()->sortBy('user.name');
+        return $this->activeStudents()->where(['my_class_id' => $class_id])->with(['my_class', 'user', 'my_parent', 'section'])->get()->sortBy('user.name');
     }
 
     public function activeStudents()

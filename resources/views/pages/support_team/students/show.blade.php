@@ -39,9 +39,12 @@
                             </tr>
                             @if($sr->my_parent_id)
                                 <tr>
-                                    <td class="font-weight-bold">Parent</td>
+                                    <td class="font-weight-bold">Parent / Guardian</td>
                                     <td>
                                         <span><a target="_blank" href="{{ route('users.show', Qs::hash($sr->my_parent_id)) }}">{{ $sr->my_parent->name }}</a></span>
+                                        @if($sr->my_parent->phone)<br><small class="text-muted">Phone: {{ $sr->my_parent->phone }}{{ $sr->my_parent->phone2 ? ' / '.$sr->my_parent->phone2 : '' }}</small>@endif
+                                        @if($sr->my_parent->email)<br><small class="text-muted">Email: {{ $sr->my_parent->email }}</small>@endif
+                                        @if($sr->my_parent->address)<br><small class="text-muted">Address: {{ $sr->my_parent->address }}</small>@endif
                                     </td>
                                 </tr>
                             @endif

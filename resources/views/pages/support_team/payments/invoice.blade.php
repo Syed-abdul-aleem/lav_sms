@@ -9,6 +9,13 @@
         </div>
 
         <div class="card-body">
+                @if($sr)
+                <div class="alert alert-light border">
+                    <strong>Student:</strong> {{ $sr->user->name }} ({{ $sr->adm_no }}) &nbsp;|&nbsp;
+                    <strong>Class:</strong> {{ $sr->my_class->name }} {{ $sr->section->name ?? '' }} &nbsp;|&nbsp;
+                    <strong>Parent / Guardian:</strong> @if($sr->my_parent){{ $sr->my_parent->name }}@if($sr->my_parent->phone) — {{ $sr->my_parent->phone }}@endif@if($sr->my_parent->email) — {{ $sr->my_parent->email }}@endif @else — @endif
+                </div>
+                @endif
                 <ul class="nav nav-tabs nav-tabs-highlight">
                     <li class="nav-item"><a href="#all-uc" class="nav-link active" data-toggle="tab">Incomplete Payments</a></li>
                     <li class="nav-item"><a href="#all-cl" class="nav-link" data-toggle="tab">Completed Payments</a></li>

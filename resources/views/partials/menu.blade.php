@@ -51,9 +51,27 @@
                     </a>
                 </li>
 
+                {{--Class Diary--}}
+                <li class="nav-item">
+                    <a href="{{ route('diaries.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['diaries.index', 'diaries.create', 'diaries.edit']) ? 'active' : '' }}">
+                        <i class="icon-notebook"></i>
+                        <span>Class Diary</span>
+                    </a>
+                </li>
+
+                {{--My Salary (staff only)--}}
+                @if(Qs::userIsStaff())
+                <li class="nav-item">
+                    <a href="{{ route('salaries.my') }}" class="nav-link {{ (Route::is('salaries.my')) ? 'active' : '' }}">
+                        <i class="icon-coins"></i>
+                        <span>My Salary</span>
+                    </a>
+                </li>
+                @endif
+
                 {{--Academics--}}
                 @if(Qs::userIsAcademic())
-                    <li class="nav-item nav-item-submenu {{ in_array(Route::currentRouteName(), ['tt.index', 'ttr.edit', 'ttr.show', 'ttr.manage']) ? 'nav-item-expanded nav-item-open' : '' }} ">
+                    <li class="nav-item nav-item-submenu {{ in_array(Route::currentRouteName(), ['tt.index', 'ttr.edit', 'ttr.show', 'ttr.manage']) ? 'nav-item-expanded nav-item-open' : '' }}">
                         <a href="#" class="nav-link"><i class="icon-graduation2"></i> <span> Academics</span></a>
 
                         <ul class="nav nav-group-sub" data-submenu-title="Manage Academics">
@@ -66,7 +84,7 @@
 
                 {{--Administrative--}}
                 @if(Qs::userIsAdministrative())
-                    <li class="nav-item nav-item-submenu {{ in_array(Route::currentRouteName(), ['payments.index', 'payments.create', 'payments.invoice', 'payments.receipts', 'payments.edit', 'payments.manage', 'payments.show',]) ? 'nav-item-expanded nav-item-open' : '' }} ">
+                    <li class="nav-item nav-item-submenu {{ in_array(Route::currentRouteName(), ['payments.index', 'payments.create', 'payments.invoice', 'payments.receipts', 'payments.edit', 'payments.manage', 'payments.show',]) ? 'nav-item-expanded nav-item-open' : '' }}">
                         <a href="#" class="nav-link"><i class="icon-office"></i> <span> Administrative</span></a>
 
                         <ul class="nav nav-group-sub" data-submenu-title="Administrative">
@@ -86,13 +104,20 @@
 
                             </li>
                             @endif
+
+                            {{--Salaries / Payroll--}}
+                            @if(Qs::userIsTeamAccount())
+                            <li class="nav-item">
+                                <a href="{{ route('salaries.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['salaries.index']) ? 'active' : '' }}">Staff Salaries</a>
+                            </li>
+                            @endif
                         </ul>
                     </li>
                 @endif
 
                 {{--Manage Students--}}
                 @if(Qs::userIsTeamSAT())
-                    <li class="nav-item nav-item-submenu {{ in_array(Route::currentRouteName(), ['students.create', 'students.list', 'students.edit', 'students.show', 'students.promotion', 'students.promotion_manage', 'students.graduated']) ? 'nav-item-expanded nav-item-open' : '' }} ">
+                    <li class="nav-item nav-item-submenu {{ in_array(Route::currentRouteName(), ['students.create', 'students.list', 'students.edit', 'students.show', 'students.promotion', 'students.promotion_manage', 'students.graduated']) ? 'nav-item-expanded nav-item-open' : '' }}">
                         <a href="#" class="nav-link"><i class="icon-users"></i> <span> Students</span></a>
 
                         <ul class="nav nav-group-sub" data-submenu-title="Manage Students">
@@ -162,7 +187,7 @@
 
                 {{--Exam--}}
                 @if(Qs::userIsTeamSAT())
-                <li class="nav-item nav-item-submenu {{ in_array(Route::currentRouteName(), ['exams.index', 'exams.edit', 'grades.index', 'grades.edit', 'marks.index', 'marks.manage', 'marks.bulk', 'marks.tabulation', 'marks.show', 'marks.batch_fix',]) ? 'nav-item-expanded nav-item-open' : '' }} ">
+                <li class="nav-item nav-item-submenu {{ in_array(Route::currentRouteName(), ['exams.index', 'exams.edit', 'grades.index', 'grades.edit', 'marks.index', 'marks.manage', 'marks.bulk', 'marks.tabulation', 'marks.show', 'marks.batch_fix',]) ? 'nav-item-expanded nav-item-open' : '' }}">
                     <a href="#" class="nav-link"><i class="icon-books"></i> <span> Exams</span></a>
 
                     <ul class="nav nav-group-sub" data-submenu-title="Manage Exams">

@@ -1,0 +1,28 @@
+/* LAV_SMS v2 — responsive + polish overrides (loaded last) */
+img { max-width: 100%; }
+.table-responsive, .card-body { overflow-x: auto; }
+table.datatable-button-html5-columns, table.table { width: 100% !important; }
+input, select, textarea { font-size: 16px !important; } /* stops iOS zoom-on-focus */
+.content { padding: 1rem; }
+@media (max-width: 767.98px) {
+  .content { padding: .75rem; }
+  .card-header.header-elements-inline { flex-wrap: wrap; gap: .5rem; }
+  .header-elements { margin-top: .5rem; }
+  .page-header .breadcrumb { display: none; }
+  .nav-tabs { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .nav-tabs .nav-item { white-space: nowrap; }
+  table.table td, table.table th { white-space: nowrap; }
+  .media.flex-column, .d-flex.flex-wrap { row-gap: .5rem; }
+  .btn { margin-bottom: .25rem; }
+  .login-form { width: 100% !important; max-width: 400px; margin: 0 auto; }
+  .navbar-brand img { max-height: 28px; }
+  h6.card-title { font-size: 1rem; }
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .content { padding: 1rem; }
+}
+/* Print: hide navigation on printed pages that use the master layout */
+@media print {
+  .sidebar, .navbar, .page-header, .btn, .nav-tabs { display: none !important; }
+  .content-wrapper { margin: 0 !important; }
+}

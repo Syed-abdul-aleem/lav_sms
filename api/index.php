@@ -27,13 +27,20 @@ if (!file_exists($tmpDb)) {
     }
 }
 
+// Production database: if a DATABASE_URL is set in the Vercel project
+// environment (e.g. a Supabase Postgres connection string — see
+// SUPABASE_GUIDE.md), use it. Otherwise fall back to the bundled
+// SQLite demo database in /tmp (data resets on cold start).
+$externalDbUrl = $_SERVER['DATABASE_URL'] ?? getenv('DATABASE_URL');
+$useExternalDb = !empty($externalDbUrl);
+
 // Environment overrides (real env wins over .env in Laravel).
 $envs = [
     'APP_ENV' => 'production',
     'APP_VERCEL' => '1',
     'APP_DEBUG' => 'false',
-    'DB_CONNECTION' => 'sqlite',
-    'DB_DATABASE' => $tmpDb,
+    'DB_CONNECTION' => $useExternalDb ? 'pgsql' : 'sqlite',
+    'DB_DATABASE' => $useExternalDb ? '' : $tmpDb,
     'CACHE_DRIVER' => 'array',
     'SESSION_DRIVER' => 'cookie',
     'QUEUE_CONNECTION' => 'sync',

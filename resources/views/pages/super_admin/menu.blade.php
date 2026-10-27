@@ -4,7 +4,7 @@
 </li>
 
 {{--Pins--}}
-<li class="nav-item nav-item-submenu {{ in_array(Route::currentRouteName(), ['pins.create', 'pins.index']) ? 'nav-item-expanded nav-item-open' : '' }} ">
+<li class="nav-item nav-item-submenu {{ in_array(Route::currentRouteName(), ['pins.create', 'pins.index']) ? 'nav-item-expanded nav-item-open' : '' }}">
     <a href="#" class="nav-link"><i class="icon-lock2"></i> <span> Pins</span></a>
 
     <ul class="nav nav-group-sub" data-submenu-title="Manage Pins">

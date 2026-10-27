@@ -7,6 +7,12 @@
         <td><strong>HOUSE:</strong> {{ strtoupper($sr->house) }}</td>
         <td><strong>CLASS:</strong> {{ strtoupper($my_class->name) }}</td>
     </tr>
+    @if($sr->my_parent)
+    <tr>
+        <td colspan="2"><strong>PARENT/GUARDIAN:</strong> {{ strtoupper($sr->my_parent->name) }}</td>
+        <td colspan="2"><strong>PARENT PHONE:</strong> {{ $sr->my_parent->phone }}</td>
+    </tr>
+    @endif
     <tr>
         <td><strong>REPORT SHEET FOR</strong> {!! strtoupper(Mk::getSuffix($ex->term)) !!} TERM </td>
         <td><strong>ACADEMIC YEAR:</strong> {{ $ex->year }}</td>

@@ -13,6 +13,25 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', 'HomeController@dashboard')->name('home');
     Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
 
+    /*************** Class Diary (all roles, scoped in controller) *****************/
+    Route::group(['prefix' => 'diaries', 'namespace' => 'SupportTeam'], function() {
+        Route::get('/', 'DiaryController@index')->name('diaries.index');
+        Route::get('create', 'DiaryController@create')->name('diaries.create');
+        Route::post('/', 'DiaryController@store')->name('diaries.store');
+        Route::get('{diary_id}/edit', 'DiaryController@edit')->name('diaries.edit');
+        Route::put('{diary_id}', 'DiaryController@update')->name('diaries.update');
+        Route::delete('{diary_id}', 'DiaryController@destroy')->name('diaries.destroy');
+    });
+
+    /*************** Staff Salaries / Payroll *****************/
+    Route::group(['prefix' => 'salaries', 'namespace' => 'SupportTeam'], function() {
+        Route::get('/', 'SalaryController@index')->name('salaries.index');
+        Route::post('/', 'SalaryController@store')->name('salaries.store');
+        Route::delete('{salary_id}', 'SalaryController@destroy')->name('salaries.destroy');
+        Route::get('my', 'SalaryController@mySalary')->name('salaries.my');
+        Route::get('{salary_id}/slip', 'SalaryController@slip')->name('salaries.slip');
+    });
+
     Route::group(['prefix' => 'my_account'], function() {
         Route::get('/', 'MyAccountController@edit_profile')->name('my_account');
         Route::put('/', 'MyAccountController@update_profile')->name('my_account.update');
