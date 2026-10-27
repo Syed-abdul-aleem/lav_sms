@@ -1,0 +1,5 @@
+vendor/
+.env
+tests/
+_ide_helper.php
+.vercel
