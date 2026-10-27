@@ -18,7 +18,7 @@
   "env": {
     "APP_NAME": "LAV_SMS",
     "APP_ENV": "production",
-    "APP_DEBUG": "false",
+    "APP_DEBUG": "true",
     "APP_KEY": "base64:knNLPRWVA6WQEsPS1SAZM6O9W5nc0A3TnxVWnzhyfiE=",
     "APP_VERCEL": "1",
     "DB_CONNECTION": "sqlite",

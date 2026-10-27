@@ -31,7 +31,7 @@ if (!file_exists($tmpDb)) {
 $envs = [
     'APP_ENV' => 'production',
     'APP_VERCEL' => '1',
-    'APP_DEBUG' => 'false',
+    'APP_DEBUG' => 'true',
     'DB_CONNECTION' => 'sqlite',
     'DB_DATABASE' => $tmpDb,
     'CACHE_DRIVER' => 'array',
