@@ -18,13 +18,14 @@
   "env": {
     "APP_NAME": "LAV_SMS",
     "APP_ENV": "production",
-    "APP_DEBUG": "true",
+    "APP_DEBUG": "false",
     "APP_KEY": "base64:knNLPRWVA6WQEsPS1SAZM6O9W5nc0A3TnxVWnzhyfiE=",
     "APP_VERCEL": "1",
     "DB_CONNECTION": "sqlite",
     "CACHE_DRIVER": "array",
     "SESSION_DRIVER": "cookie",
     "QUEUE_CONNECTION": "sync",
-    "LOG_CHANNEL": "stderr"
+    "LOG_CHANNEL": "stderr",
+    "APP_URL": "https://lav-sms-rho.vercel.app"
   }
 }
