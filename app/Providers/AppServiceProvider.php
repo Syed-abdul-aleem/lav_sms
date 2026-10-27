@@ -13,7 +13,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // On Vercel, TLS is terminated at the edge and PHP sees plain http,
+        // so force https for all generated URLs (assets, redirects, forms).
+        if (env('APP_VERCEL')) {
+            \Illuminate\Support\Facades\URL::forceScheme('https');
+        }
     }
 
     /**
