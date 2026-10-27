@@ -142,3 +142,5 @@ This copy was adapted for Vercel serverless deployment:
 - **Responsive theme**: new `lav-responsive.css` (mobile tables scroll, 16px inputs, wrapping headers, print rules) + cleaned stray spaces in asset URLs that broke some links.
 - **Supabase / Postgres ready**: set `DATABASE_URL` (Supabase pooler) and the app uses Postgres automatically — full steps in **SUPABASE_GUIDE.md**. Without it, the bundled SQLite demo DB is used (resets on Vercel cold start).
 - **Security**: security-headers middleware, secure session cookies in production, built-in login throttling, role checks in every new controller (teachers edit only their own diary entries; salary slips are owner/admin/accountant only).
+
+<!-- deploy trigger 2026-10-27 v2 -->
