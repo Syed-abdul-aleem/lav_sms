@@ -7,9 +7,6 @@ Route::get('/privacy-policy', 'HomeController@privacy_policy')->name('privacy_po
 Route::get('/terms-of-use', 'HomeController@terms_of_use')->name('terms_of_use');
 
 
-/* TEMPORARY one-time Supabase re-seed (token-protected, removed after use) */
-Route::get('/__setup', 'SetupController@run');
-
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/', 'HomeController@dashboard')->name('home');
