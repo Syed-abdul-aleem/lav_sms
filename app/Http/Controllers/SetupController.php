@@ -31,7 +31,7 @@ class SetupController extends Controller
                 return response("MIGRATE_EXIT=$code\n" . Artisan::output() . "\nMIGRATE_DONE", 200)->header('Content-Type', 'text/plain');
             }
             if ($step === 'seed_one') {
-                $only = preg_replace('/[^A-Za-z]/', '', (string)$req->query('only'));
+                $only = preg_replace('/[^A-Za-z0-9]/', '', (string)$req->query('only'));
                 $class = 'Database\\Seeders\\' . $only;
                 if (!$only || !class_exists($class)) {
                     return response('UNKNOWN_SEEDER', 400);
