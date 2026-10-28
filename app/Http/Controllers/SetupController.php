@@ -30,6 +30,17 @@ class SetupController extends Controller
                 $code = Artisan::call('migrate', ['--force' => true]);
                 return response("MIGRATE_EXIT=$code\n" . Artisan::output() . "\nMIGRATE_DONE", 200)->header('Content-Type', 'text/plain');
             }
+            if ($step === 'seed_one') {
+                $only = preg_replace('/[^A-Za-z]/', '', (string)$req->query('only'));
+                $class = 'Database\\Seeders\\' . $only;
+                if (!$only || !class_exists($class)) {
+                    return response('UNKNOWN_SEEDER', 400);
+                }
+                $code = Artisan::call('db:seed', ['--class' => $class, '--force' => true]);
+                return response("SEED_ONE_EXIT=$code [$only]
+" . Artisan::output() . "
+SEED_ONE_DONE", 200)->header('Content-Type', 'text/plain');
+            }
             if ($step === 'seed') {
                 $code = Artisan::call('db:seed', ['--force' => true]);
                 return response("SEED_EXIT=$code\n" . Artisan::output() . "\nSEED_DONE", 200)->header('Content-Type', 'text/plain');
