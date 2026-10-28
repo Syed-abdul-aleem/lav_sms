@@ -1,5 +1,7 @@
 # LAV_SMS v2 — Supabase (Postgres) Connection Guide
 
+> **STATUS: CONNECTED on 2026-10-28.** The production site https://lav-sms-rho.vercel.app/ runs on the Supabase project `lav-sms` (Singapore, ap-southeast-1, Session pooler via Vercel env `DATABASE_URL`). The one-time token-protected `/__setup` endpoint used to run the migrations/seeders was removed after verification (commit 563e17c) and the `SETUP_TOKEN` env var was deleted. The steps below remain as the reference for how it was done / how to repeat it for another school. Note for future seeding: the heavy seeders (Lgas 774 rows, Nationalities, States) and StudentRecords now bulk-insert — row-by-row seeding over the pooler times out on serverless.
+
 The app runs in **two database modes**:
 
 | Mode | When | Data |
