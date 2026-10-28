@@ -60,6 +60,9 @@
                         </div>
                     </div>
                 </form>
+                <div class="text-center mt-2" style="font-size: 12px; color: #666;">
+                    Students ka alag login nahi hota — parents apne login se bachon ki diary, result aur fees sab dekh sakte hain.
+                </div>
 
             </div>
 

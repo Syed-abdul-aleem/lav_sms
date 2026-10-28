@@ -72,14 +72,14 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Phone:</label>
-                                        <input value="{{ old('phone') }}" type="text" name="phone" class="form-control" placeholder="+2341234567" >
+                                        <input value="{{ old('phone') }}" type="text" name="phone" class="form-control" placeholder="03XX-XXXXXXX" >
                                     </div>
                                 </div>
 
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Telephone:</label>
-                                        <input value="{{ old('phone2') }}" type="text" name="phone2" class="form-control" placeholder="+2341234567" >
+                                        <input value="{{ old('phone2') }}" type="text" name="phone2" class="form-control" placeholder="03XX-XXXXXXX" >
                                     </div>
                                 </div>
 
@@ -90,6 +90,17 @@
                                     <div class="form-group">
                                         <label>Date of Employment:</label>
                                         <input autocomplete="off" name="emp_date" value="{{ old('emp_date') }}" type="text" class="form-control date-pick" placeholder="Select Date...">
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Subjects Taught (Teacher ke liye):</label>
+                                        <input name="subjects" value="{{ old('subjects') }}" type="text" list="pk-subjects" class="form-control" placeholder="e.g. English, Mathematics, General Science">
+                                        <span class="form-text text-muted">Teacher kis kis subject ka teacher hai — comma se alag likhen. Class-wise subject assign Subjects menu se bhi hota hai.</span>
+                                        <datalist id="pk-subjects">
+                                            @foreach(Qs::getPakistaniSubjects() as $ps)<option value="{{ $ps }}">@endforeach
+                                        </datalist>
+                                    </div>
+                                </div>
 
                                     </div>
                                 </div>
@@ -128,7 +139,7 @@
                             <div class="row">
                                 {{--State--}}
                                 <div class="col-md-4">
-                                    <label for="state_id">State: <span class="text-danger">*</span></label>
+                                    <label for="state_id">Province: <span class="text-danger">*</span></label>
                                     <select onchange="getLGA(this.value)" required data-placeholder="Choose.." class="select-search form-control" name="state_id" id="state_id">
                                         <option value=""></option>
                                         @foreach($states as $st)
@@ -138,7 +149,7 @@
                                 </div>
                                 {{--LGA--}}
                                 <div class="col-md-4">
-                                    <label for="lga_id">LGA: <span class="text-danger">*</span></label>
+                                    <label for="lga_id">District: <span class="text-danger">*</span></label>
                                     <select required data-placeholder="Select State First" class="select-search form-control" name="lga_id" id="lga_id">
                                         <option value=""></option>
                                     </select>

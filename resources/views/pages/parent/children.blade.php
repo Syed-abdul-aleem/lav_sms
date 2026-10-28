@@ -41,6 +41,7 @@
                                         <a href="{{ route('students.show', Qs::hash($s->id)) }}" class="dropdown-item"><i class="icon-eye"></i> View Profile</a>
                                         <a href="{{ route('diaries.index', ['class_id' => $s->my_class_id]) }}" class="dropdown-item"><i class="icon-notebook"></i> Class Diary / Homework</a>
                                         <a target="_blank" href="{{ route('marks.year_selector', Qs::hash($s->user->id)) }}" class="dropdown-item"><i class="icon-check"></i> Marksheet</a>
+                                        <a href="{{ route('payments.invoice', Qs::hash($s->user->id)) }}" class="dropdown-item"><i class="icon-money"></i> Fees / Payments</a>
 
                                     </div>
                                 </div>

@@ -73,13 +73,13 @@
                                 @endif
                                 @if($user->state_id)
                                     <tr>
-                                        <td class="font-weight-bold">State</td>
+                                        <td class="font-weight-bold">Province</td>
                                         <td>{{$user->state->name }}</td>
                                     </tr>
                                 @endif
                                 @if($user->lga_id)
                                     <tr>
-                                        <td class="font-weight-bold">LGA</td>
+                                        <td class="font-weight-bold">District</td>
                                         <td>{{$user->lga->name }}</td>
                                     </tr>
                                 @endif
@@ -95,6 +95,12 @@
                                     </tr>
                                 @endif
 
+                                @if($user->staff && $user->staff->first() && $user->staff->first()->subjects)
+                                    <tr>
+                                        <td class="font-weight-bold">Subjects Taught</td>
+                                        <td>{{ $user->staff->first()->subjects }}</td>
+                                    </tr>
+                                @endif
                                 @if($user->user_type == 'teacher')
                                     <tr>
                                         <td class="font-weight-bold">My Subjects</td>

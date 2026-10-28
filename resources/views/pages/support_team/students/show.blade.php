@@ -90,13 +90,13 @@
                             @endif
                             @if($sr->user->state_id)
                             <tr>
-                                <td class="font-weight-bold">State</td>
+                                <td class="font-weight-bold">Province</td>
                                 <td>{{$sr->user->state->name }}</td>
                             </tr>
                             @endif
                             @if($sr->user->lga_id)
                             <tr>
-                                <td class="font-weight-bold">LGA</td>
+                                <td class="font-weight-bold">District</td>
                                 <td>{{$sr->user->lga->name }}</td>
                             </tr>
                             @endif

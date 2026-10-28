@@ -7,25 +7,18 @@ use Illuminate\Support\Facades\DB;
 
 class ClassTypesTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         DB::table('class_types')->delete();
 
+        // Pakistani school structure
         $data = [
-            ['name' => 'Creche', 'code' => 'C'],
-            ['name' => 'Pre Nursery', 'code' => 'PN'],
-            ['name' => 'Nursery', 'code' => 'N'],
+            ['name' => 'Pre Primary', 'code' => 'PP'],
             ['name' => 'Primary', 'code' => 'P'],
-            ['name' => 'Junior Secondary', 'code' => 'J'],
-            ['name' => 'Senior Secondary', 'code' => 'S'],
+            ['name' => 'Middle', 'code' => 'M'],
+            ['name' => 'Secondary', 'code' => 'S'],
         ];
 
         DB::table('class_types')->insert($data);
-
     }
 }

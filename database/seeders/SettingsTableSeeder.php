@@ -6,38 +6,33 @@ use Illuminate\Support\Facades\DB;
 
 class SettingsTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         DB::table('settings')->delete();
 
+        // Default Pakistani demo school — Super Admin can rename it in Settings
+        // for whichever real school uses the system.
         $data = [
-            ['type' => 'current_session', 'description' => '2018-2019'],
-            ['type' => 'system_title', 'description' => 'CJIA'],
-            ['type' => 'system_name', 'description' => 'CJ INSPIRED ACADEMY'],
-            ['type' => 'term_ends', 'description' => '7/10/2018'],
-            ['type' => 'term_begins', 'description' => '7/10/2018'],
-            ['type' => 'phone', 'description' => '0123456789'],
-            ['type' => 'address', 'description' => '18B North Central Park, Behind Central Square Tourist Center'],
-            ['type' => 'system_email', 'description' => 'cjacademy@cj.com'],
+            ['type' => 'current_session', 'description' => '2026-2027'],
+            ['type' => 'system_title', 'description' => 'PMS'],
+            ['type' => 'system_name', 'description' => 'Pakistan Model School'],
+            ['type' => 'term_ends', 'description' => '31/03/2027'],
+            ['type' => 'term_begins', 'description' => '01/08/2026'],
+            ['type' => 'phone', 'description' => '0300-1234567'],
+            ['type' => 'address', 'description' => 'Main Boulevard, Gulberg III, Lahore, Punjab, Pakistan'],
+            ['type' => 'system_email', 'description' => 'info@pakistanmodelschool.pk'],
             ['type' => 'alt_email', 'description' => ''],
             ['type' => 'email_host', 'description' => ''],
             ['type' => 'email_pass', 'description' => ''],
             ['type' => 'lock_exam', 'description' => 0],
             ['type' => 'logo', 'description' => ''],
-            ['type' => 'next_term_fees_j', 'description' => '20000'],
-            ['type' => 'next_term_fees_pn', 'description' => '25000'],
-            ['type' => 'next_term_fees_p', 'description' => '25000'],
-            ['type' => 'next_term_fees_n', 'description' => '25600'],
-            ['type' => 'next_term_fees_s', 'description' => '15600'],
-            ['type' => 'next_term_fees_c', 'description' => '1600'],
+            // Next-term fees in PKR (Rs) per class type
+            ['type' => 'next_term_fees_pp', 'description' => '15000'],
+            ['type' => 'next_term_fees_p', 'description' => '18000'],
+            ['type' => 'next_term_fees_m', 'description' => '22000'],
+            ['type' => 'next_term_fees_s', 'description' => '28000'],
         ];
 
         DB::table('settings')->insert($data);
-
     }
 }

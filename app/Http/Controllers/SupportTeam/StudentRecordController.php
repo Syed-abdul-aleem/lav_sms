@@ -34,7 +34,7 @@ class StudentRecordController extends Controller
     public function reset_pass($st_id)
     {
         $st_id = Qs::decodeHash($st_id);
-        $data['password'] = Hash::make('student');
+        $data['password'] = Hash::make(\Illuminate\Support\Str::random(40)); // Students have no login — parents manage everything
         $this->user->update($st_id, $data);
         return back()->with('flash_success', __('msg.p_reset'));
     }

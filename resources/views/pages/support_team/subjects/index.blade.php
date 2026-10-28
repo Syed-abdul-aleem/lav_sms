@@ -30,7 +30,8 @@
                                 <div class="form-group row">
                                     <label for="name" class="col-lg-3 col-form-label font-weight-semibold">Name <span class="text-danger">*</span></label>
                                     <div class="col-lg-9">
-                                        <input id="name" name="name" value="{{ old('name') }}" required type="text" class="form-control" placeholder="Name of subject">
+                                        <input id="name" name="name" list="pk-subjects" value="{{ old('name') }}" required type="text" class="form-control" placeholder="Name of subject">
+                                        <datalist id="pk-subjects">@foreach(Qs::getPakistaniSubjects() as $ps)<option value="{{ $ps }}">@endforeach</datalist>
                                     </div>
                                 </div>
 

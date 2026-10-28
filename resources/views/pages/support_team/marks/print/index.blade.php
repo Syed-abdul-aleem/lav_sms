@@ -1,52 +1,39 @@
 <html>
 <head>
-    <title>Student Marksheet - {{ $sr->user->name }}</title>
+    <title>Result Card - {{ $sr->user->name }} - {{ Qs::getSetting('system_name') }}</title>
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/my_print.css') }}" />
 </head>
 <body>
 <div class="container">
-    <div id="print" xmlns:margin-top="http://www.w3.org/1999/xhtml">
-        {{--    Logo N School Details--}}
-        <table width="100%">
-            <tr>
-                <td><img src="{{ $s['logo'] }}" style="max-height : 100px;"></td>
+    <div id="print">
+        <div class="rc-card">
+            {{-- School header --}}
+            <div class="rc-header">
+                @if(!empty($s['logo']))
+                    <img class="rc-logo" src="{{ $s['logo'] }}" alt="logo">
+                @endif
+                <div class="rc-school">{{ strtoupper(Qs::getSetting('system_name')) }}</div>
+                <div class="rc-address">{{ ucwords($s['address']) }} @if(!empty($s['phone'])) &nbsp;|&nbsp; Phone: {{ $s['phone'] }} @endif</div>
+                <div class="rc-title">RESULT CARD &mdash; {{ strtoupper($ex->name) }} ({{ strtoupper($class_type->name) }})</div>
+            </div>
 
-                <td style="text-align: center; ">
-                    <strong><span style="color: #1b0c80; font-size: 25px;">{{ strtoupper(Qs::getSetting('system_name')) }}</span></strong><br/>
-                   {{-- <strong><span style="color: #1b0c80; font-size: 20px;">MINNA, NIGER STATE</span></strong><br/>--}}
-                    <strong><span
-                                style="color: #000; font-size: 15px;"><i>{{ ucwords($s['address']) }}</i></span></strong><br/>
-                    <strong><span style="color: #000; font-size: 15px;"> REPORT SHEET {{ '('.strtoupper($class_type->name).')' }}
-                    </span></strong>
-                </td>
-                <td style="width: 100px; height: 100px; float: left;">
-                    <img src="{{ $sr->user->photo }}"
-                         alt="..."  width="100" height="100">
-                </td>
-            </tr>
-        </table>
-        <br/>
+            @include('pages.support_team.marks.print.sheet')
 
-        {{--Background Logo--}}
-        <div style="position: relative;  text-align: center; ">
-            <img src="{{ $s['logo'] }}"
-                 style="max-width: 500px; max-height:600px; margin-top: 60px; position:absolute ; opacity: 0.2; margin-left: auto;margin-right: auto; left: 0; right: 0;" />
+            @include('pages.support_team.marks.print.grading')
+
+            @include('pages.support_team.marks.print.skills')
+
+            <div style="margin-top: 18px; clear: both;"></div>
+
+            @include('pages.support_team.marks.print.comments')
+
+            <div class="rc-signs">
+                <div class="rc-sign">Class Teacher<br><br>___________________</div>
+                <div class="rc-sign">Principal<br><br>___________________</div>
+                <div class="rc-sign">Parent / Guardian<br><br>___________________</div>
+            </div>
+            <div class="rc-footer">This is a computer-generated result card. &bull; {{ Qs::getSetting('system_name') }} &bull; Session {{ $ex->year }}</div>
         </div>
-
-        {{--<!-- SHEET BEGINS HERE-->--}}
-@include('pages.support_team.marks.print.sheet')
-
-        {{--Key to Grading--}}
-        {{--@include('pages.support_team.marks.print.grading')--}}
-
-        {{-- TRAITS - PSCHOMOTOR & AFFECTIVE --}}
-        @include('pages.support_team.marks.print.skills')
-
-        <div style="margin-top: 25px; clear: both;"></div>
-
-        {{--    COMMENTS & SIGNATURE    --}}
-        @include('pages.support_team.marks.print.comments')
-
     </div>
 </div>
 
@@ -54,5 +41,4 @@
     window.print();
 </script>
 </body>
-
 </html>

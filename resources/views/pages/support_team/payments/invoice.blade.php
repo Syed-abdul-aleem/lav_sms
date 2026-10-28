@@ -13,7 +13,14 @@
                 <div class="alert alert-light border">
                     <strong>Student:</strong> {{ $sr->user->name }} ({{ $sr->adm_no }}) &nbsp;|&nbsp;
                     <strong>Class:</strong> {{ $sr->my_class->name }} {{ $sr->section->name ?? '' }} &nbsp;|&nbsp;
-                    <strong>Parent / Guardian:</strong> @if($sr->my_parent){{ $sr->my_parent->name }}@if($sr->my_parent->phone) — {{ $sr->my_parent->phone }}@endif@if($sr->my_parent->email) — {{ $sr->my_parent->email }}@endif @else — @endif
+                    <strong>Parent / Guardian:</strong>
+                    @if($sr->my_parent)
+                        {{ $sr->my_parent->name }}
+                        @if($sr->my_parent->phone) — {{ $sr->my_parent->phone }} @endif
+                        @if($sr->my_parent->email) — {{ $sr->my_parent->email }} @endif
+                    @else
+                        —
+                    @endif
                 </div>
                 @endif
                 <ul class="nav nav-tabs nav-tabs-highlight">

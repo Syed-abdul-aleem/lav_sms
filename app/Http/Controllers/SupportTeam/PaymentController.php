@@ -27,7 +27,7 @@ class PaymentController extends Controller
         $this->year = Qs::getCurrentSession();
         $this->student = $student;
 
-        $this->middleware('teamAccount');
+        $this->middleware('teamAccount')->except(['invoice', 'receipts', 'pdf_receipts']);
     }
 
     public function index()
@@ -66,9 +66,22 @@ class PaymentController extends Controller
         return view('pages.support_team.payments.create', $d);
     }
 
+    /* Staff (incl. accountant) see all; a parent only their own child's payments */
+    protected function canViewStudentPayments(int $student_user_id)
+    {
+        $u = auth()->user();
+        if (!$u) { return false; }
+        if (in_array($u->user_type, ['super_admin', 'admin', 'accountant', 'teacher'])) { return true; }
+        return $u->user_type === 'parent' && Qs::userIsMyChild($student_user_id, $u->id);
+    }
+
     public function invoice($st_id, $year = NULL)
     {
         if(!$st_id) {return Qs::goWithDanger();}
+
+        if(!$this->canViewStudentPayments((int) $st_id)) {
+            return redirect(route('dashboard'))->with('pop_error', __('msg.denied'));
+        }
 
         $inv = $year ? $this->pay->getAllMyPR($st_id, $year) : $this->pay->getAllMyPR($st_id);
 
@@ -89,6 +102,9 @@ class PaymentController extends Controller
         } catch (ModelNotFoundException $ex) {
             return back()->with('flash_danger', __('msg.rnf'));
         }
+        if(!$this->canViewStudentPayments((int) $pr->student_id)) {
+            return redirect(route('dashboard'))->with('pop_error', __('msg.denied'));
+        }
         $d['receipts'] = $pr->receipt;
         $d['payment'] = $pr->payment;
         $d['sr'] = $this->student->findByUserId($pr->student_id)->first();
@@ -107,6 +123,9 @@ class PaymentController extends Controller
             $d['pr'] = $pr = $this->pay->getRecord(['id' => $pr_id])->with('receipt')->first();
         } catch (ModelNotFoundException $ex) {
             return back()->with('flash_danger', __('msg.rnf'));
+        }
+        if(!$this->canViewStudentPayments((int) $pr->student_id)) {
+            return redirect(route('dashboard'))->with('pop_error', __('msg.denied'));
         }
         $d['receipts'] = $pr->receipt;
         $d['payment'] = $pr->payment;

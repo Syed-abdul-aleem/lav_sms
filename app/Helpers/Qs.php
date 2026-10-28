@@ -94,7 +94,7 @@ class Qs
 
     public static function getStaffRecord($remove = [])
     {
-        $data = ['emp_date',];
+        $data = ['emp_date', 'subjects',];
 
         return $remove ? array_values(array_diff($data, $remove)) : $data;
     }
@@ -179,6 +179,15 @@ class Qs
     {
         $data =  ['super_admin', 'admin', 'teacher', 'accountant', 'librarian'];
         return $remove ? array_values(array_diff($data, $remove)) : $data;
+    }
+
+    // Pakistani curriculum subjects — suggestions shown when adding a subject / teacher
+    public static function getPakistaniSubjects()
+    {
+        return ['English', 'Urdu', 'Mathematics', 'General Science', 'Science', 'Social Studies',
+            'Pakistan Studies', 'Islamiyat', 'Computer Science', 'Physics', 'Chemistry', 'Biology',
+            'General Knowledge', 'Arabic', 'Art & Craft', 'Sindhi', 'Pashto', 'English Literature',
+            'Economics', 'Accounting', 'Business Studies', 'Home Economics', 'Physical Education'];
     }
 
     public static function getAllUserTypes($remove=[])

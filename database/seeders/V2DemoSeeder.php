@@ -12,31 +12,22 @@ class V2DemoSeeder extends Seeder
 {
     public function run()
     {
-        // Demo contact numbers for the core seeded accounts (fictional demo data)
-        $phones = [1 => '0300-0000001', 2 => '0300-0000002', 3 => '0300-0000003', 4 => '0300-0000004', 5 => '0300-0000005'];
-        foreach ($phones as $id => $phone) {
-            User::where('id', $id)->update(['phone' => $phone]);
-        }
-        User::where('user_type', 'parent')->whereNull('phone')
-            ->orWhere('user_type', 'parent')->where('phone', '')
-            ->get()->each(function ($u) { $u->update(['phone' => '0301-0000' . str_pad($u->id % 1000, 3, '0', STR_PAD_LEFT)]); });
-
-        // Staff records for all staff accounts (needed by salary slips)
+        // Staff records for all staff accounts (needed by salary slips),
+        // with each teacher's subjects written at creation time.
+        $teacherSubjects = [
+            'teacher' => 'English, Mathematics',
+            'teacher2' => 'Urdu, General Science, Islamiyat',
+        ];
         $staff = User::whereIn('user_type', ['teacher', 'admin', 'accountant', 'librarian'])->get();
-        foreach ($staff as $i => $u) {
-            StaffRecord::firstOrCreate(['user_id' => $u->id], ['code' => 'STF-' . str_pad($u->id, 4, '0', STR_PAD_LEFT), 'emp_date' => '2023-01-15']);
+        foreach ($staff as $u) {
+            StaffRecord::updateOrCreate(
+                ['user_id' => $u->id],
+                ['code' => 'STF-' . str_pad($u->id, 4, '0', STR_PAD_LEFT), 'emp_date' => '2023-01-15',
+                 'subjects' => $teacherSubjects[$u->username] ?? null]
+            );
         }
 
-        // Link students to parents (round-robin) so parent logins show their children
-        $parentIds = User::where('user_type', 'parent')->pluck('id')->all();
-        if ($parentIds) {
-            $records = DB::table('student_records')->whereNull('my_parent_id')->orderBy('id')->get();
-            foreach ($records as $i => $r) {
-                DB::table('student_records')->where('id', $r->id)->update(['my_parent_id' => $parentIds[$i % count($parentIds)]]);
-            }
-        }
-
-        // Demo class diary entries by the demo teacher
+        // Demo class diary entries by the demo teacher (Pakistani school context)
         $teacher = User::where('username', 'teacher')->first();
         if ($teacher && DB::table('my_classes')->exists()) {
             $classes = DB::table('my_classes')->orderBy('id')->limit(2)->get();
@@ -58,7 +49,7 @@ class V2DemoSeeder extends Seeder
             }
         }
 
-        // Demo salary payments for the current month
+        // Demo salary payments (PKR) for the current month
         $month = date('Y-m');
         $mk = function ($username, $basic, $allow, $ded, $paid) use ($month) {
             $u = User::where('username', $username)->first();

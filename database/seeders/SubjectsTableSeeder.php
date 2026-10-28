@@ -9,11 +9,6 @@ use Illuminate\Support\Facades\DB;
 
 class SubjectsTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         DB::table('subjects')->delete();
@@ -23,34 +18,45 @@ class SubjectsTableSeeder extends Seeder
 
     protected function createSubjects()
     {
-        $subjects = ['English Language', 'Mathematics'];
-        $sub_slug = ['Eng', 'Math'];
-        $teacher_id = User::where(['user_type' => 'teacher'])->first()->id;
-        $my_classes = MyClass::all();
+        // Pakistani curriculum subjects by class band
+        $prePrimary = [
+            ['English', 'Eng'], ['Urdu', 'Urdu'], ['Mathematics', 'Math'],
+            ['General Knowledge', 'GK'], ['Islamiyat', 'Isl'], ['Art & Craft', 'Art'],
+        ];
+        $primary = [
+            ['English', 'Eng'], ['Urdu', 'Urdu'], ['Mathematics', 'Math'],
+            ['General Science', 'GSci'], ['Social Studies', 'SST'], ['Islamiyat', 'Isl'],
+            ['Computer Science', 'CS'], ['Art & Craft', 'Art'],
+        ];
+        $middle = [
+            ['English', 'Eng'], ['Urdu', 'Urdu'], ['Mathematics', 'Math'],
+            ['General Science', 'GSci'], ['Social Studies', 'SST'], ['Islamiyat', 'Isl'],
+            ['Computer Science', 'CS'], ['Arabic', 'Arab'],
+        ];
+        $secondary = [
+            ['English', 'Eng'], ['Urdu', 'Urdu'], ['Mathematics', 'Math'],
+            ['Pakistan Studies', 'PakSt'], ['Islamiyat', 'Isl'], ['Physics', 'Phy'],
+            ['Chemistry', 'Chem'], ['Biology', 'Bio'], ['Computer Science', 'CS'],
+        ];
 
-        foreach ($my_classes as $my_class) {
+        $teachers = User::where('user_type', 'teacher')->pluck('id')->all();
+        if (!$teachers) { return; }
 
-            $data = [
-
-                [
-                    'name' => $subjects[0],
-                    'slug' => $sub_slug[0],
-                    'my_class_id' => $my_class->id,
-                    'teacher_id' => $teacher_id
-                ],
-
-                [
-                    'name' => $subjects[1],
-                    'slug' => $sub_slug[1],
-                    'my_class_id' => $my_class->id,
-                    'teacher_id' => $teacher_id
-                ],
-
-            ];
-
-            DB::table('subjects')->insert($data);
+        $rows = [];
+        foreach (MyClass::with('class_type')->get() as $mc) {
+            $code = $mc->class_type ? $mc->class_type->code : 'P';
+            $set = $code === 'PP' ? $prePrimary : ($code === 'M' ? $middle : ($code === 'S' ? $secondary : $primary));
+            foreach ($set as $i => $s) {
+                $rows[] = [
+                    'name' => $s[0],
+                    'slug' => $s[1],
+                    'my_class_id' => $mc->id,
+                    'teacher_id' => $teachers[$i % count($teachers)],
+                ];
+            }
         }
-
+        foreach (array_chunk($rows, 100) as $chunk) {
+            DB::table('subjects')->insert($chunk);
+        }
     }
-
 }

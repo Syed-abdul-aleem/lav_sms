@@ -77,7 +77,7 @@
                                 <div class="form-group row">
                                     <label class="col-lg-3 col-form-label font-weight-semibold">Name <span class="text-danger">*</span></label>
                                     <div class="col-lg-9">
-                                        <input name="name" value="{{ old('name') }}" required type="text" class="form-control" placeholder="Name of Class">
+                                        <input name="name" value="{{ old('name') }}" required type="text" class="form-control" placeholder="e.g. Playgroup, Nursery, KG, Class 1 ... Class 10">
                                     </div>
                                 </div>
 
