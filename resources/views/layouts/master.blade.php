@@ -45,7 +45,7 @@
 {{-- Developer footer (every page) --}}
 <div class="navbar navbar-expand-lg navbar-light" style="border-top:1px solid #ddd; background:#fff;">
     <span class="navbar-text text-center w-100" style="display:block;">
-        Developed by <strong>Syed Abdul Aleem</strong> &middot; WhatsApp: <a href="https://wa.me/923295566111" target="_blank" class="font-weight-semibold">03295566111</a>
+        Powered by <strong>BunyadSoft</strong> &middot; Developed by <strong>Syed Abdul Aleem</strong> &middot; WhatsApp: <a href="https://wa.me/923295566111" target="_blank" class="font-weight-semibold">03295566111</a>
     </span>
 </div>
 

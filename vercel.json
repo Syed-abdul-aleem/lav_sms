@@ -19,7 +19,7 @@
     }
   ],
   "env": {
-    "APP_NAME": "LAV_SMS",
+    "APP_NAME": "BunyadSoft",
     "APP_ENV": "production",
     "APP_DEBUG": "false",
     "APP_KEY": "base64:knNLPRWVA6WQEsPS1SAZM6O9W5nc0A3TnxVWnzhyfiE=",
