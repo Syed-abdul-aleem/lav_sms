@@ -37,7 +37,7 @@ class StudentRecordController extends Controller
         // Students are listed per class — send to the first class list.
         $first = \App\Models\MyClass::orderBy('id')->first();
         if ($first) {
-            return redirect()->route('students.list', Qs::hash($first->id));
+            return redirect()->route('students.list', $first->id);
         }
         return redirect()->route('dashboard');
     }
