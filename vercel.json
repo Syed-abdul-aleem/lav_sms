@@ -29,7 +29,7 @@
     "APP_NAME": "BunyadSoft",
     "APP_ENV": "production",
     "APP_DEBUG": "false",
-    "APP_KEY": "base64:knNLPRWVA6WQEsPS1SAZM6O9W5nc0A3TnxVWnzhyfiE=",
+    "APP_KEY": "base64:cC3ghZJ0gJwsXeS8huewRDoDjeY+huzgg/HQ9tZqvrw=",
     "APP_VERCEL": "1",
     "DB_CONNECTION": "sqlite",
     "CACHE_DRIVER": "array",
