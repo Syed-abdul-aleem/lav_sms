@@ -1,8 +1,5 @@
 <?php
 
-/* TEMPORARY one-time Supabase re-seed (token-protected, removed after use) */
-Route::get('/__setup', 'SetupController@run');
-
 Auth::routes();
 
 //Route::get('/test', 'TestController@index')->name('test');
