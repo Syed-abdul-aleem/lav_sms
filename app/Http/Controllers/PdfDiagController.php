@@ -23,6 +23,7 @@ class PdfDiagController extends Controller
             $d['payment'] = $pr->payment;
             $d['sr'] = $student->findByUserId($pr->student_id)->first();
             $d['s'] = Setting::all()->flatMap(function ($s) { return [$s->type => $s->description]; });
+            $d['pdf_mode'] = true;
             $pdf = Pdf::loadView('pages.support_team.payments.receipt', $d);
             $out = $pdf->output();
             return response('PDF OK bytes=' . strlen($out), 200);

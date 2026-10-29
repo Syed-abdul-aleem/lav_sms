@@ -132,6 +132,8 @@ class PaymentController extends Controller
             return [$s->type => $s->description];
         });
 
+        $d['pdf_mode'] = true;
+
         $pdf_name = 'Receipt_'.$pr->ref_no;
 
         return PDF::loadView('pages.support_team.payments.receipt', $d)->download($pdf_name);

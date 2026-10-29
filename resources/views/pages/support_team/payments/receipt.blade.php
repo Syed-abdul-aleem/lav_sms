@@ -23,11 +23,13 @@
             </tr>
         </table>
 
-        {{--Background Logo--}}
+        {{--Background Logo (skipped in PDF mode: the server has no GD extension for images)--}}
+        @if(empty($pdf_mode))
         <div style="position: relative;  text-align: center; ">
             <img src="{{ $s['logo'] }}"
                  style="max-width: 500px; max-height:600px; margin-top: 60px; position:absolute ; opacity: 0.1; margin-left: auto;margin-right: auto; left: 0; right: 0;"/>
         </div>
+        @endif
 
         {{--Receipt No --}}
     <div class="bold arial" style="text-align: center; float:right; width: 200px; padding: 5px; margin-right:30px">
@@ -47,9 +49,11 @@
         </div>
 
         {{--Photo--}}
+        @if(empty($pdf_mode))
         <div style="margin: 15px;">
             <img style="width: 100px; height: 100px; float: left;" src="{{ $sr->user->photo }}" alt="...">
         </div>
+        @endif
 
        <div style="float: left; margin-left: 20px">
            <table style="font-size: 16px" class="td-left" cellspacing="5" cellpadding="5">
