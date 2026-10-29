@@ -81,6 +81,7 @@
                 @if(Qs::userIsTeamSAT())
                 <div class="col-6 col-md-4 col-lg-2 mb-2"><a href="{{ route('diaries.create') }}" class="btn btn-secondary btn-block"><i class="icon-notebook mr-1"></i> New Diary</a></div>
                 <div class="col-6 col-md-4 col-lg-2 mb-2"><a href="{{ route('marks.index') }}" class="btn btn-dark btn-block"><i class="icon-check mr-1"></i> Enter Marks</a></div>
+                <div class="col-6 col-md-4 col-lg-2 mb-2"><a href="{{ route('ett.index') }}" class="btn btn-success btn-block"><i class="icon-table2 mr-1"></i> Timetables</a></div>
                 @endif
                 @if(Auth::user()->user_type == 'accountant')
                 <div class="col-6 col-md-4 col-lg-2 mb-2"><a href="{{ route('payments.manage') }}" class="btn btn-warning btn-block"><i class="icon-money mr-1"></i> Fees</a></div>

@@ -13,6 +13,11 @@ class MyClass extends Eloquent
         return $this->hasMany(Section::class);
     }
 
+    public function sections()
+    {
+        return $this->hasMany(Section::class, 'my_class_id');
+    }
+
     public function class_type()
     {
         return $this->belongsTo(ClassType::class);

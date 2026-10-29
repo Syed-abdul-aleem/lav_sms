@@ -71,13 +71,23 @@
 
                 {{--Academics--}}
                 @if(Qs::userIsAcademic())
-                    <li class="nav-item nav-item-submenu {{ in_array(Route::currentRouteName(), ['tt.index', 'ttr.edit', 'ttr.show', 'ttr.manage']) ? 'nav-item-expanded nav-item-open' : '' }}">
+                    <li class="nav-item nav-item-submenu {{ in_array(Route::currentRouteName(), ['tt.index', 'ttr.edit', 'ttr.show', 'ttr.manage', 'ett.index', 'ett.class.create', 'ett.class.show', 'ett.teachers', 'ett.teacher.show', 'ett.my', 'ett.master', 'ett.timing', 'ett.exam.create', 'ett.exam.show']) ? 'nav-item-expanded nav-item-open' : '' }}">
                         <a href="#" class="nav-link"><i class="icon-graduation2"></i> <span> Academics</span></a>
 
                         <ul class="nav nav-group-sub" data-submenu-title="Manage Academics">
 
-                        {{--Timetables--}}
-                            <li class="nav-item"><a href="{{ route('tt.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['tt.index']) ? 'active' : '' }}">Timetables</a></li>
+                        {{--Easy Timetables--}}
+                            <li class="nav-item"><a href="{{ route('ett.index') }}" class="nav-link {{ (Route::is('ett.index')) ? 'active' : '' }}">Timetables (Easy)</a></li>
+                            @if(Qs::userIsTeamSA())
+                            <li class="nav-item"><a href="{{ route('ett.class.create') }}" class="nav-link">Create Class Timetable</a></li>
+                            <li class="nav-item"><a href="{{ route('ett.exam.create') }}" class="nav-link">Create Exam Timetable</a></li>
+                            <li class="nav-item"><a href="{{ route('ett.timing') }}" class="nav-link">School Timing</a></li>
+                            @endif
+                            <li class="nav-item"><a href="{{ route('ett.teachers') }}" class="nav-link">Teacher Timetables</a></li>
+                            <li class="nav-item"><a href="{{ route('ett.master') }}" class="nav-link">Master Timetable</a></li>
+                            @if(Qs::userIsTeacher())
+                            <li class="nav-item"><a href="{{ route('ett.my') }}" class="nav-link {{ (Route::is('ett.my')) ? 'active' : '' }}">My Timetable</a></li>
+                            @endif
                         </ul>
                     </li>
                     @endif

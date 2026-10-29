@@ -14,6 +14,28 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
 
     /*************** Class Diary (all roles, scoped in controller) *****************/
+    /* Easy Timetables (simple single-form module) */
+    Route::group(['prefix' => 'easy-timetable', 'namespace' => 'SupportTeam'], function() {
+        Route::get('/', 'EasyTimetableController@index')->name('ett.index');
+        Route::get('class/create', 'EasyTimetableController@classForm')->name('ett.class.create');
+        Route::post('class', 'EasyTimetableController@store')->name('ett.class.store');
+        Route::get('class/{class_id}/{section_id}', 'EasyTimetableController@showClass')->name('ett.class.show');
+        Route::get('class/{class_id}/{section_id}/print', 'EasyTimetableController@printClass')->name('ett.class.print');
+        Route::delete('class/{class_id}/{section_id}', 'EasyTimetableController@destroyClass')->name('ett.class.destroy');
+        Route::get('teachers', 'EasyTimetableController@teachers')->name('ett.teachers');
+        Route::get('teacher/{teacher_id}', 'EasyTimetableController@teacherShow')->name('ett.teacher.show');
+        Route::get('teacher/{teacher_id}/print', 'EasyTimetableController@printTeacher')->name('ett.teacher.print');
+        Route::get('my', 'EasyTimetableController@my')->name('ett.my');
+        Route::get('timing', 'EasyTimetableController@timingForm')->name('ett.timing');
+        Route::post('timing', 'EasyTimetableController@storeTiming')->name('ett.timing.store');
+        Route::get('master', 'EasyTimetableController@master')->name('ett.master');
+        Route::get('exam/create', 'EasyTimetableController@examForm')->name('ett.exam.create');
+        Route::post('exam', 'EasyTimetableController@storeExam')->name('ett.exam.store');
+        Route::get('exam/{class_id}', 'EasyTimetableController@examShow')->name('ett.exam.show');
+        Route::get('exam/{class_id}/print', 'EasyTimetableController@printExam')->name('ett.exam.print');
+        Route::delete('exam/{class_id}', 'EasyTimetableController@destroyExam')->name('ett.exam.destroy');
+    });
+
     Route::group(['prefix' => 'diaries', 'namespace' => 'SupportTeam'], function() {
         Route::get('/', 'DiaryController@index')->name('diaries.index');
         Route::get('create', 'DiaryController@create')->name('diaries.create');
