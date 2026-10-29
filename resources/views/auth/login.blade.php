@@ -44,6 +44,42 @@
         @media (max-width: 991.98px) {
             .bs-form { padding: 28px 22px 22px; }
         }
+
+        /* --- Animations (tasteful, professional) --- */
+        .login-cover { background-size: 170% 170%; animation: bsBg 16s ease-in-out infinite alternate; }
+        @keyframes bsBg {
+            0% { background-position: 0% 40%; }
+            100% { background-position: 100% 60%; }
+        }
+        .bs-card { animation: bsIn .7s cubic-bezier(.2,.75,.3,1) both; }
+        @keyframes bsIn {
+            from { opacity: 0; transform: translateY(26px) scale(.985); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .bs-mark { animation: bsFloat 3.4s ease-in-out infinite; }
+        @keyframes bsFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+        .bs-feats div { opacity: 0; animation: bsFade .55s ease both; }
+        .bs-feats div:nth-child(1) { animation-delay: .25s; }
+        .bs-feats div:nth-child(2) { animation-delay: .4s; }
+        .bs-feats div:nth-child(3) { animation-delay: .55s; }
+        .bs-feats div:nth-child(4) { animation-delay: .7s; }
+        .bs-feats div:nth-child(5) { animation-delay: .85s; }
+        @keyframes bsFade {
+            from { opacity: 0; transform: translateX(-14px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .bs-btn { transition: transform .18s ease, box-shadow .18s ease, background .18s ease; }
+        .bs-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(11,61,32,.35); }
+        .bs-btn:active { transform: translateY(0); }
+        .bs-input { transition: border-color .18s ease, box-shadow .18s ease; }
+        .bs-input:focus { border-color: #2f7d46; box-shadow: 0 0 0 3px rgba(47,125,70,.18); }
+        @media (prefers-reduced-motion: reduce) {
+            .login-cover, .bs-card, .bs-mark, .bs-feats div { animation: none !important; }
+            .bs-feats div { opacity: 1; }
+        }
     </style>
 
     <div class="page-content login-cover">
@@ -135,10 +171,6 @@
                             </div>
 
                         </div>
-                    </div>
-
-                    <div class="bs-note">
-                        Students ka alag login nahi hota — parents apne login se bachon ki diary, result aur fees sab dekh sakte hain.
                     </div>
                 </form>
 
