@@ -7,7 +7,7 @@
 <link href="{{ asset('assets/css/components.min.css') }}" rel="stylesheet" type="text/css">
 <link href="{{ asset('assets/css/colors.min.css') }}" rel="stylesheet" type="text/css">
 <!-- /global stylesheets -->
-<link href="{{ asset('assets/css/lav-responsive.css') }}?v=2" rel="stylesheet" type="text/css">
+<link href="{{ asset('assets/css/lav-responsive.css') }}?v=3" rel="stylesheet" type="text/css">
 
 <!-- Core JS files -->
 <script src="{{ asset('global_assets/js/main/jquery.min.js') }}"></script>
