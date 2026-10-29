@@ -8,7 +8,7 @@
 
     <div class="navbar-collapse collapse" id="navbar-footer">
 					<span class="navbar-text">
-						&copy; {{ date('Y') }}. <a href="#">{{ Qs::getSystemName() }}</a> by <a href="#" >CJ Inspired</a>
+						&copy; {{ date('Y') }}. <a href="#">{{ Qs::getSystemName() }}</a> &mdash; Developed by <strong>Syed Abdul Aleem</strong> &middot; WhatsApp: <a href="https://wa.me/923295566111" target="_blank">03295566111</a>
 					</span>
 
         <ul class="navbar-nav ml-lg-auto">

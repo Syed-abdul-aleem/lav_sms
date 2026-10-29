@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta id="csrf-token" name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="author" content="CJ Inspired">
+    <meta name="author" content="Syed Abdul Aleem">
 
     <title> @yield('page_title') | {{ config('app.name') }} </title>
 
@@ -40,6 +40,13 @@
 
 
     </div>
+</div>
+
+{{-- Developer footer (every page) --}}
+<div class="navbar navbar-expand-lg navbar-light" style="border-top:1px solid #ddd; background:#fff;">
+    <span class="navbar-text text-center w-100" style="display:block;">
+        Developed by <strong>Syed Abdul Aleem</strong> &middot; WhatsApp: <a href="https://wa.me/923295566111" target="_blank" class="font-weight-semibold">03295566111</a>
+    </span>
 </div>
 
 @include('partials.inc_bottom')
