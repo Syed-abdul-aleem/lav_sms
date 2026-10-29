@@ -5,8 +5,11 @@
   "functions": {
     "api/index.php": {
       "runtime": "vercel-php@0.4.5",
-      "memory": 1024,
-      "maxDuration": 60
+      "memory": 2048,
+      "maxDuration": 60,
+      "regions": [
+        "sin1"
+      ]
     }
   },
   "routes": [
