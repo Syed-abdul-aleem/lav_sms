@@ -1,6 +1,11 @@
 @extends('layouts.master')
 @section('page_title', 'Manage Users')
 @section('content')
+    <div class="alert alert-info alert-styled-left alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+        <strong>Parents ke liye asaan tareeqa:</strong> Parent ko yahan se add karne ki bajaye <a href="{{ route('students.family.create') }}" class="alert-link">Students &rarr; Add Parent &amp; Children</a> use karein — parent aur us ke tamam bachay aik hi form me add ho jate hain.
+    </div>
+
 
     <div class="card">
         <div class="card-header header-elements-inline">

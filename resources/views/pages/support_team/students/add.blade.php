@@ -159,6 +159,15 @@
                                         <option {{ (old('my_parent_id') == Qs::hash($p->id)) ? 'selected' : '' }} value="{{ Qs::hash($p->id) }}">{{ $p->name }}</option>
                                     @endforeach
                                 </select>
+                                <div class="mt-2">
+                                    <label style="font-weight:normal;"><input type="checkbox" id="qp-toggle" onchange="document.getElementById('qp-fields').style.display = this.checked ? '' : 'none'"> Parent list me nahi? <strong>Naya parent yahin add kar dein</strong> (uper wala select khali chor dein)</label>
+                                    <div id="qp-fields" style="display:none;" class="border rounded p-2 mt-1">
+                                        <input type="text" name="qp_name" class="form-control mb-1" placeholder="Parent ka naam *">
+                                        <input type="text" name="qp_phone" class="form-control mb-1" placeholder="Mobile number * (yehi login ID + default password hoga)">
+                                        <input type="email" name="qp_email" class="form-control" placeholder="Email (optional)">
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
 

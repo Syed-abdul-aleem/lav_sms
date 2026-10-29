@@ -54,6 +54,17 @@ class StudentRecordController extends Controller
        $data =  $req->only(Qs::getUserRecord());
        $sr =  $req->only(Qs::getStudentData());
 
+        // Parent select sends a hashed id — decode it to the real parent id
+        if (!empty($sr['my_parent_id'])) {
+            $sr['my_parent_id'] = is_numeric($sr['my_parent_id']) ? (int) $sr['my_parent_id'] : (int) Qs::decodeHash($sr['my_parent_id']);
+        }
+
+        // Quick parent: admin typed a new parent right here instead of selecting one
+        if (empty($sr['my_parent_id']) && $req->filled('qp_name') && $req->filled('qp_phone')) {
+            [$qp] = Qs::createParentAccount($req->qp_name, $req->qp_phone, $req->qp_email);
+            $sr['my_parent_id'] = $qp->id;
+        }
+
         $ct = $this->my_class->findTypeByClass($req->my_class_id)->code;
        /* $ct = ($ct == 'J') ? 'JSS' : $ct;
         $ct = ($ct == 'S') ? 'SS' : $ct;*/
@@ -160,6 +171,11 @@ class StudentRecordController extends Controller
         $this->user->update($sr->user->id, $d); // Update User Details
 
         $srec = $req->only(Qs::getStudentData());
+
+        // Parent select sends a hashed id — decode it to the real parent id
+        if (!empty($srec['my_parent_id'])) {
+            $srec['my_parent_id'] = is_numeric($srec['my_parent_id']) ? (int) $srec['my_parent_id'] : (int) Qs::decodeHash($srec['my_parent_id']);
+        }
 
         $this->student->updateRecord($sr_id, $srec); // Update St Rec
 

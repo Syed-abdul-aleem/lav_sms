@@ -6,6 +6,10 @@ use App\Models\Setting;
 use App\Models\StudentRecord;
 use App\Models\Subject;
 use Hashids\Hashids;
+use App\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
 class Qs
@@ -179,6 +183,42 @@ class Qs
     {
         $data =  ['super_admin', 'admin', 'teacher', 'accountant', 'librarian'];
         return $remove ? array_values(array_diff($data, $remove)) : $data;
+    }
+
+    /**
+     * Create a parent login from the bare minimum (name + phone).
+     * Login ID is the email when given, otherwise the phone number (username).
+     * Password defaults to the phone number when not supplied.
+     * Returns [User, plainPasswordUsed].
+     */
+    public static function createParentAccount($name, $phone, $email = null, $password = null)
+    {
+        $digits = preg_replace('/\D/', '', (string) $phone) ?: ('parent' . mt_rand(1000, 9999));
+        $username = $digits;
+        $i = 1;
+        while (User::where('username', $username)->exists()) {
+            $username = $digits . $i++;
+        }
+        $plain = $password ?: $digits;
+
+        $lahore = DB::table('lgas')->where('name', 'Lahore')->first();
+        $pakistani = DB::table('nationalities')->where('name', 'Pakistani')->value('id');
+
+        $user = User::create([
+            'name' => ucwords($name),
+            'email' => $email ?: null,
+            'username' => $username,
+            'password' => Hash::make($plain),
+            'user_type' => 'parent',
+            'code' => strtoupper(Str::random(10)),
+            'phone' => $phone,
+            'photo' => self::getDefaultUserImage(),
+            'nal_id' => $pakistani,
+            'state_id' => $lahore ? $lahore->state_id : null,
+            'lga_id' => $lahore ? $lahore->id : null,
+        ]);
+
+        return [$user, $plain];
     }
 
     // Pakistani curriculum subjects — suggestions shown when adding a subject / teacher
