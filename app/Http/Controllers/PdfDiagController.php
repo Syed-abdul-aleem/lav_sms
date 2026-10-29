@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Repositories\PaymentRepo;
 use App\Repositories\StudentRepo;
 use App\Models\Setting;
-use Barryvdh\DomPDF\Facade\Pdf;
+use Barryvdh\DomPDF\Facade as Pdf;
 
 class PdfDiagController extends Controller
 {
