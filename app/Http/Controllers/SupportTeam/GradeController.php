@@ -28,6 +28,13 @@ class GradeController extends Controller
         return view('pages.support_team.grades.index', $d);
     }
 
+
+    public function create()
+    {
+        // The create form lives on the index page (modal/tab) — redirect there instead of a missing page.
+        return redirect()->route('grades.index');
+    }
+
     public function store(GradeCreate $req)
     {
         $data = $req->all();
@@ -49,6 +56,12 @@ class GradeController extends Controller
 
         $this->exam->updateGrade($id, $data);
         return back()->with('flash_success', __('msg.update_ok'));
+    }
+
+
+    public function show($id)
+    {
+        return redirect()->route('grades.index');
     }
 
     public function destroy($id)

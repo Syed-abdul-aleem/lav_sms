@@ -26,3 +26,52 @@ input, select, textarea { font-size: 16px !important; } /* stops iOS zoom-on-foc
   .sidebar, .navbar, .page-header, .btn, .nav-tabs { display: none !important; }
   .content-wrapper { margin: 0 !important; }
 }
+
+/* ============================================================
+   BunyadSoft Theme — deep green + gold (school branding)
+   Primary green: #14532d · Dark green: #0b3d20 · Gold: #c9a227
+   ============================================================ */
+a { color: #1a6a3a; }
+a:hover { color: #0f4526; }
+.text-primary { color: #14532d !important; }
+.bg-primary { background-color: #14532d !important; }
+.border-primary { border-color: #14532d !important; }
+.btn-primary { background-color: #14532d; border-color: #14532d; }
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary.active, .show > .btn-primary.dropdown-toggle { background-color: #0f4526; border-color: #0f4526; }
+.btn-outline-primary { color: #14532d; border-color: #14532d; }
+.btn-outline-primary:hover { background-color: #14532d; border-color: #14532d; }
+.badge-primary { background-color: #14532d; }
+.progress-bar { background-color: #14532d; }
+.page-item.active .page-link { background-color: #14532d; border-color: #14532d; }
+.page-link:hover { color: #0f4526; }
+.dataTables_paginate .paginate_button.current, .dataTables_paginate .paginate_button.current:hover { background: #14532d !important; border-color: #14532d !important; color: #fff !important; }
+.nav-tabs .nav-link.active { color: #14532d; border-bottom-color: #14532d; }
+.nav-pills .nav-link.active { background-color: #14532d; }
+.dropdown-item.active, .dropdown-item:active { background-color: #14532d; }
+.form-control:focus { border-color: #2f7d46; box-shadow: 0 0 0 3px rgba(47,125,70,.15); }
+.custom-control-input:checked ~ .custom-control-label::before { background-color: #14532d; border-color: #14532d; }
+.checker span.checked { color: #14532d; border-color: #14532d; }
+.switchery > span { border-color: #14532d !important; background-color: #14532d !important; }
+.select2-results__option--highlighted[aria-selected] { background-color: #14532d; }
+.datepicker table tr td.active, .datepicker table tr td.active:hover { background-color: #14532d; }
+.bootstrap-select .dropdown-item.active, .bootstrap-select .dropdown-item:active { background-color: #14532d; }
+.list-group-item.active { background-color: #14532d; border-color: #14532d; }
+
+/* Top navbar — BunyadSoft dark green with gold underline */
+.navbar-dark { background-color: #0b3d20 !important; border-bottom: 2px solid #c9a227; }
+
+/* Sidebar — deep green */
+.sidebar-dark { background-color: #0a2e19 !important; }
+.sidebar-dark .nav-sidebar .nav-item-header { color: #c9a227; }
+.sidebar-dark .nav-sidebar > .nav-item > .nav-link.active,
+.sidebar-dark .nav-sidebar .nav-item-open > .nav-link,
+.sidebar-dark .nav-sidebar .nav-item-submenu.nav-item-open > .nav-link { background-color: #14532d; color: #fff; }
+.sidebar-dark .nav-sidebar .nav-link:hover { background-color: rgba(201,162,39,.16); color: #fff; }
+.sidebar-dark .nav-sidebar .nav-item-submenu > .nav-group-sub .nav-link.active { background-color: rgba(201,162,39,.25); color: #ffd94d; }
+
+/* Page header accent */
+.page-header .page-title .text-primary, .breadcrumb-item.active { color: #14532d; }
+
+/* SweetAlert / modal primary buttons inherit .btn-primary above */

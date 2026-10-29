@@ -31,6 +31,13 @@ class SubjectController extends Controller
         return view('pages.support_team.subjects.index', $d);
     }
 
+
+    public function create()
+    {
+        // The create form lives on the index page (modal/tab) — redirect there instead of a missing page.
+        return redirect()->route('subjects.index');
+    }
+
     public function store(SubjectCreate $req)
     {
         $data = $req->all();
@@ -54,6 +61,12 @@ class SubjectController extends Controller
         $this->my_class->updateSubject($id, $data);
 
         return Qs::jsonUpdateOk();
+    }
+
+
+    public function show($id)
+    {
+        return redirect()->route('subjects.index');
     }
 
     public function destroy($id)

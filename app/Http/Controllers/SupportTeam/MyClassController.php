@@ -30,6 +30,13 @@ class MyClassController extends Controller
         return view('pages.support_team.classes.index', $d);
     }
 
+
+    public function create()
+    {
+        // The create form lives on the index page (modal/tab) — redirect there instead of a missing page.
+        return redirect()->route('classes.index');
+    }
+
     public function store(ClassCreate $req)
     {
         $data = $req->all();
@@ -60,6 +67,12 @@ class MyClassController extends Controller
         $this->my_class->update($id, $data);
 
         return Qs::jsonUpdateOk();
+    }
+
+
+    public function show($id)
+    {
+        return redirect()->route('classes.index');
     }
 
     public function destroy($id)

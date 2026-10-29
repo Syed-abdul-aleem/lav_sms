@@ -26,6 +26,13 @@ class DormController extends Controller
         return view('pages.support_team.dorms.index', $d);
     }
 
+
+    public function create()
+    {
+        // The create form lives on the index page (modal/tab) — redirect there instead of a missing page.
+        return redirect()->route('dorms.index');
+    }
+
     public function store(DormCreate $req)
     {
         $data = $req->only(['name', 'description']);
@@ -48,6 +55,12 @@ class DormController extends Controller
         $this->dorm->update($id, $data);
 
         return Qs::jsonUpdateOk();
+    }
+
+
+    public function show($id)
+    {
+        return redirect()->route('dorms.index');
     }
 
     public function destroy($id)

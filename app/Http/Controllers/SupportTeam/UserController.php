@@ -64,6 +64,13 @@ class UserController extends Controller
         return back()->with('flash_success', __('msg.pu_reset'));
     }
 
+
+    public function create()
+    {
+        // The create form lives on the index page (modal/tab) — redirect there instead of a missing page.
+        return redirect()->route('users.index');
+    }
+
     public function store(UserRequest $req)
     {
         $user_type = $this->user->findType($req->user_type)->title;

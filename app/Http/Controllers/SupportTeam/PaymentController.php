@@ -97,9 +97,8 @@ class PaymentController extends Controller
     {
         if(!$pr_id) {return Qs::goWithDanger();}
 
-        try {
-             $d['pr'] = $pr = $this->pay->getRecord(['id' => $pr_id])->with('receipt')->first();
-        } catch (ModelNotFoundException $ex) {
+        $d['pr'] = $pr = $this->pay->getRecord(['id' => $pr_id])->with('receipt')->first();
+        if (!$pr) {
             return back()->with('flash_danger', __('msg.rnf'));
         }
         if(!$this->canViewStudentPayments((int) $pr->student_id)) {
@@ -119,9 +118,8 @@ class PaymentController extends Controller
     {
         if(!$pr_id) {return Qs::goWithDanger();}
 
-        try {
-            $d['pr'] = $pr = $this->pay->getRecord(['id' => $pr_id])->with('receipt')->first();
-        } catch (ModelNotFoundException $ex) {
+        $d['pr'] = $pr = $this->pay->getRecord(['id' => $pr_id])->with('receipt')->first();
+        if (!$pr) {
             return back()->with('flash_danger', __('msg.rnf'));
         }
         if(!$this->canViewStudentPayments((int) $pr->student_id)) {

@@ -25,6 +25,13 @@ class ExamController extends Controller
         return view('pages.support_team.exams.index', $d);
     }
 
+
+    public function create()
+    {
+        // The create form lives on the index page (modal/tab) — redirect there instead of a missing page.
+        return redirect()->route('exams.index');
+    }
+
     public function store(ExamCreate $req)
     {
         $data = $req->only(['name', 'term']);
@@ -46,6 +53,12 @@ class ExamController extends Controller
 
         $this->exam->update($id, $data);
         return back()->with('flash_success', __('msg.update_ok'));
+    }
+
+
+    public function show($id)
+    {
+        return redirect()->route('exams.index');
     }
 
     public function destroy($id)

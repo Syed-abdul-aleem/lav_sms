@@ -31,6 +31,13 @@ class SectionController extends Controller
         return view('pages.support_team.sections.index', $d);
     }
 
+
+    public function create()
+    {
+        // The create form lives on the index page (modal/tab) — redirect there instead of a missing page.
+        return redirect()->route('sections.index');
+    }
+
     public function store(SectionCreate $req)
     {
         $data = $req->all();
@@ -53,6 +60,12 @@ class SectionController extends Controller
         $this->my_class->updateSection($id, $data);
 
         return Qs::jsonUpdateOk();
+    }
+
+
+    public function show($id)
+    {
+        return redirect()->route('sections.index');
     }
 
     public function destroy($id)
