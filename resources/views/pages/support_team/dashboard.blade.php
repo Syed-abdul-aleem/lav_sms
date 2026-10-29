@@ -75,7 +75,6 @@
             <div class="row">
                 @if(Qs::userIsTeamSA())
                 <div class="col-6 col-md-4 col-lg-2 mb-2"><a href="{{ route('students.family.create') }}" class="btn btn-success btn-block"><i class="icon-users4 mr-1"></i> Add Family</a></div>
-                <div class="col-6 col-md-4 col-lg-2 mb-2"><a href="{{ route('students.create') }}" class="btn btn-primary btn-block"><i class="icon-user-plus mr-1"></i> Admit Student</a></div>
                 <div class="col-6 col-md-4 col-lg-2 mb-2"><a href="{{ route('users.index') }}" class="btn btn-info btn-block"><i class="icon-user-tie mr-1"></i> Add Staff</a></div>
                 <div class="col-6 col-md-4 col-lg-2 mb-2"><a href="{{ route('payments.manage') }}" class="btn btn-warning btn-block"><i class="icon-money mr-1"></i> Fees</a></div>
                 @endif

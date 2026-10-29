@@ -156,7 +156,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         });
 
-        Route::resource('students', 'StudentRecordController');
+        Route::resource('students', 'StudentRecordController')->except(['create', 'store']); // Admit Student removed — admission happens only via the Family form
         Route::resource('users', 'UserController');
         Route::resource('classes', 'MyClassController');
         Route::resource('sections', 'SectionController');
