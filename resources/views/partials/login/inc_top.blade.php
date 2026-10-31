@@ -9,14 +9,6 @@
 <!-- /global stylesheets -->
 <link href="{{ asset('assets/css/lav-responsive.css') }}?v=3" rel="stylesheet" type="text/css">
 
-<!-- Core JS files -->
-<script src="{{ asset('global_assets/js/main/jquery.min.js') }}"></script>
-<script src="{{ asset('global_assets/js/main/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('global_assets/js/plugins/loaders/blockui.min.js') }}"></script>
-<!-- /core JS files -->
-
-<!-- Theme JS files -->
-<script src="{{ asset('global_assets/js/plugins/forms/styling/uniform.min.js') }}"></script>
-<script src="{{ asset('assets/js/app.js') }}"></script>
-<script src="{{ asset('global_assets/js/demo_pages/login.js') }}"></script>
-<!-- /theme JS files -->
+{{-- Speed (2026-10-31): login page ko theme ki JS files ki zaroorat nahi —
+     form sada POST hai, animations CSS se hain. Render-blocking JS hata di
+     taake login page foran khule. --}}
