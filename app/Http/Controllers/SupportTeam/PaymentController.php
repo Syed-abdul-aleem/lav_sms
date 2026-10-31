@@ -28,6 +28,17 @@ class PaymentController extends Controller
         $this->student = $student;
 
         $this->middleware('teamAccount')->except(['invoice', 'receipts', 'pdf_receipts']);
+
+        // OLD fees section band (2026-10-31): sirf invoice/receipts/pay_now chalte hain,
+        // baqi sab purane pages Student Fees (Easy) par bhej diye jate hain.
+        $this->middleware(function ($req, $next) {
+            $keep = ['payments.invoice', 'payments.receipts', 'payments.pdf_receipts', 'payments.pay_now'];
+            $name = $req->route() ? $req->route()->getName() : null;
+            if (!in_array($name, $keep, true)) {
+                return redirect(route('student_fees.index'))->with('flash_info', 'Fees ka purana (old) section khatam kar diya gaya hai — ab saari fees sirf Student Fees (Easy) section se hoti hain.');
+            }
+            return $next($req);
+        });
     }
 
     public function index()

@@ -18,6 +18,11 @@ class DormController extends Controller
         $this->middleware('super_admin', ['only' => ['destroy',] ]);
 
         $this->dorm = $dorm;
+
+        // Dormitories band (2026-10-31) — Pakistani day schools ke liye zaroori nahi.
+        $this->middleware(function ($req, $next) {
+            return redirect(route('dashboard'))->with('flash_info', 'Dormitories section khatam kar diya gaya hai.');
+        });
     }
 
     public function index()

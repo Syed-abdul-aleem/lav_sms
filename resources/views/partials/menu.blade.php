@@ -103,13 +103,10 @@
                             @if(Qs::userIsTeamAccount())
                             <li class="nav-item nav-item-submenu {{ in_array(Route::currentRouteName(), ['payments.index', 'payments.create', 'payments.edit', 'payments.manage', 'payments.show', 'payments.invoice', 'student_fees.index', 'student_fees.class', 'student_fees.student']) ? 'nav-item-expanded' : '' }}">
 
-                                <a href="#" class="nav-link {{ in_array(Route::currentRouteName(), ['payments.index', 'payments.edit', 'payments.create', 'payments.manage', 'payments.show', 'payments.invoice', 'student_fees.index', 'student_fees.class', 'student_fees.student']) ? 'active' : '' }}">Payments</a>
+                                <a href="#" class="nav-link {{ in_array(Route::currentRouteName(), ['payments.index', 'payments.edit', 'payments.create', 'payments.manage', 'payments.show', 'payments.invoice', 'student_fees.index', 'student_fees.class', 'student_fees.student']) ? 'active' : '' }}">Fees</a>
 
                                 <ul class="nav nav-group-sub">
                                     <li class="nav-item"><a href="{{ route('student_fees.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['student_fees.index', 'student_fees.class', 'student_fees.student']) ? 'active' : '' }}"><strong>Student Fees (Easy)</strong></a></li>
-                                    <li class="nav-item"><a href="{{ route('payments.create') }}" class="nav-link {{ Route::is('payments.create') ? 'active' : '' }}">Create Payment</a></li>
-                                    <li class="nav-item"><a href="{{ route('payments.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['payments.index', 'payments.edit', 'payments.show']) ? 'active' : '' }}">Manage Payments</a></li>
-                                    <li class="nav-item"><a href="{{ route('payments.manage') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['payments.manage', 'payments.invoice', 'payments.receipts']) ? 'active' : '' }}">Student Payments</a></li>
 
                                 </ul>
 
@@ -178,11 +175,6 @@
                     {{--Manage Classes--}}
                     <li class="nav-item">
                         <a href="{{ route('classes.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['classes.index','classes.edit']) ? 'active' : '' }}"><i class="icon-windows2"></i> <span> Classes</span></a>
-                    </li>
-
-                    {{--Manage Dorms--}}
-                    <li class="nav-item">
-                        <a href="{{ route('dorms.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['dorms.index','dorms.edit']) ? 'active' : '' }}"><i class="icon-home9"></i> <span> Dormitories</span></a>
                     </li>
 
                     {{--Manage Sections--}}

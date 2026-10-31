@@ -23,6 +23,11 @@ class TimeTableController extends Controller
         $this->my_class = $mc;
         $this->exam = $exam;
         $this->year = Qs::getCurrentSession();
+
+        // OLD timetable module band (2026-10-31) — ab sirf Easy Timetables hai.
+        $this->middleware(function ($req, $next) {
+            return redirect(route('ett.index'))->with('flash_info', 'Purana timetable section khatam kar diya gaya hai — ab sirf Timetables (Easy) hai.');
+        });
     }
 
     public function index()

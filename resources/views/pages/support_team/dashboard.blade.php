@@ -76,7 +76,7 @@
                 @if(Qs::userIsTeamSA())
                 <div class="col-6 col-md-4 col-lg-2 mb-2"><a href="{{ route('students.family.create') }}" class="btn btn-success btn-block"><i class="icon-users4 mr-1"></i> Add Family</a></div>
                 <div class="col-6 col-md-4 col-lg-2 mb-2"><a href="{{ route('users.index') }}" class="btn btn-info btn-block"><i class="icon-user-tie mr-1"></i> Add Staff</a></div>
-                <div class="col-6 col-md-4 col-lg-2 mb-2"><a href="{{ route('payments.manage') }}" class="btn btn-warning btn-block"><i class="icon-money mr-1"></i> Fees</a></div>
+                <div class="col-6 col-md-4 col-lg-2 mb-2"><a href="{{ route('student_fees.index') }}" class="btn btn-warning btn-block"><i class="icon-money mr-1"></i> Fees</a></div>
                 @endif
                 @if(Qs::userIsTeamSAT())
                 <div class="col-6 col-md-4 col-lg-2 mb-2"><a href="{{ route('diaries.create') }}" class="btn btn-secondary btn-block"><i class="icon-notebook mr-1"></i> New Diary</a></div>
@@ -84,7 +84,7 @@
                 <div class="col-6 col-md-4 col-lg-2 mb-2"><a href="{{ route('ett.index') }}" class="btn btn-success btn-block"><i class="icon-table2 mr-1"></i> Timetables</a></div>
                 @endif
                 @if(Auth::user()->user_type == 'accountant')
-                <div class="col-6 col-md-4 col-lg-2 mb-2"><a href="{{ route('payments.manage') }}" class="btn btn-warning btn-block"><i class="icon-money mr-1"></i> Fees</a></div>
+                <div class="col-6 col-md-4 col-lg-2 mb-2"><a href="{{ route('student_fees.index') }}" class="btn btn-warning btn-block"><i class="icon-money mr-1"></i> Fees</a></div>
                 <div class="col-6 col-md-4 col-lg-2 mb-2"><a href="{{ route('salaries.index') }}" class="btn btn-info btn-block"><i class="icon-wallet mr-1"></i> Salaries</a></div>
                 @endif
             </div>

@@ -22,6 +22,11 @@ class PinController extends Controller
         $this->user = $user;
         $this->middleware('examIsLocked');
         $this->middleware('teamSA', ['except' => ['verify', 'enter_pin'] ]);
+    
+        // Exam PINs band (2026-10-31) — parents ab apne login se sab dekhte hain.
+        $this->middleware(function ($req, $next) {
+            return redirect(route('dashboard'))->with('flash_info', 'PINs section khatam kar diya gaya hai — parents apne login se results dekh sakte hain.');
+        });
     }
 
     public function index()
