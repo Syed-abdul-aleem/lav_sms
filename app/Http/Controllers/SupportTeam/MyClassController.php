@@ -77,6 +77,9 @@ class MyClassController extends Controller
 
     public function destroy($id)
     {
+        if (\App\Models\Section::where('my_class_id', $id)->count() > 0 || \App\Models\StudentRecord::where('my_class_id', $id)->count() > 0) {
+            return back()->with('pop_error', 'Is class me sections ya students mojood hain — pehle unhe delete karein, phir class delete hogi.');
+        }
         $this->my_class->delete($id);
         return back()->with('flash_success', __('msg.del_ok'));
     }

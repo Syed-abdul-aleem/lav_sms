@@ -202,8 +202,25 @@ class StudentRecordController extends Controller
         if(!$st_id){return Qs::goWithDanger();}
 
         $sr = $this->student->getRecord(['user_id' => $st_id])->first();
+        if(!$sr){ return back()->with('pop_error', __('msg.rnf')); }
+
+        // Hisab ki hifazat: agar is student ki fee JAMA (receipt) hui hai to delete block —
+        // pehle Student Fees (Easy) me wo receipts delete karein, phir student delete hoga.
+        $prIds = \App\Models\PaymentRecord::where('student_id', $sr->user_id)->pluck('id');
+        if ($prIds->count() && \App\Models\Receipt::whereIn('pr_id', $prIds)->count() > 0) {
+            return back()->with('pop_error', 'Is student ki fee jama hui hai (receipts mojood hain). Pehle Student Fees (Easy) me is student ke receipts delete karein — hisab kharab nahi honay dein gay.');
+        }
+
         $path = Qs::getUploadPath('student').$sr->user->code;
         Storage::exists($path) ? Storage::deleteDirectory($path) : false;
+
+        // Saaray attached records aik sath saaf (koi adhoora data na rahe)
+        \Illuminate\Support\Facades\DB::transaction(function () use ($sr) {
+            \App\Models\Mark::where('student_id', $sr->user_id)->delete();
+            \App\Models\ExamRecord::where('student_id', $sr->user_id)->delete();
+            \App\Models\PaymentRecord::where('student_id', $sr->user_id)->delete();
+            \App\Models\StudentRecord::where('user_id', $sr->user_id)->delete();
+        });
         $this->user->delete($sr->user->id);
 
         return back()->with('flash_success', __('msg.del_ok'));

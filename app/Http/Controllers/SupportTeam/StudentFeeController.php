@@ -240,6 +240,10 @@ class StudentFeeController extends Controller
         $d['year'] = $this->year;
         $d['staff'] = Qs::userIsTeamAccount();
         $d['wa_phone'] = $this->parentPhone($sr);
+        $prIds = $records->pluck('id');
+        $d['all_receipts'] = $prIds->count()
+            ? \App\Models\Receipt::with('pr.payment')->whereIn('pr_id', $prIds)->orderByDesc('id')->get()
+            : collect();
         return view('pages.support_team.student_fees.student', $d);
     }
 
@@ -356,6 +360,28 @@ class StudentFeeController extends Controller
         if ($pr) { $pr->delete(); }
         $payment->delete();
         return back()->with('flash_success', 'Fee delete ho gayi.');
+    }
+
+    /** Ghalat jama shuda fee (receipt) delete — record ka hisab khud theek ho jata hai */
+    public function destroyReceipt($receipt_id)
+    {
+        $receipt = \App\Models\Receipt::find($receipt_id);
+        if (!$receipt) { return back()->with('pop_error', __('msg.rnf')); }
+        $pr = PaymentRecord::find($receipt->pr_id);
+        if (!$pr) { $receipt->delete(); return back()->with('flash_success', 'Receipt delete ho gayi.'); }
+        $payment = Payment::find($pr->payment_id);
+
+        \Illuminate\Support\Facades\DB::transaction(function () use ($receipt, $pr, $payment) {
+            $newPaid = max(0, (int) ($pr->amt_paid ?: 0) - (int) ($receipt->amt_paid ?: 0));
+            $amount = $payment ? (int) $payment->amount : (int) ($pr->amt_paid ?: 0);
+            $pr->update([
+                'amt_paid' => $newPaid,
+                'balance' => $amount - $newPaid,
+                'paid' => ($amount - $newPaid) < 1 ? 1 : 0,
+            ]);
+            $receipt->delete();
+        });
+        return back()->with('flash_success', 'Receipt delete ho gayi — hisab update kar diya gaya hai.');
     }
 
     /* ---------------- slip (shareable) ---------------- */

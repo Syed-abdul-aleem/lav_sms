@@ -195,8 +195,19 @@ class UserController extends Controller
             return back()->with('pop_error', __('msg.del_teacher'));
         }
 
+        // Parent ke bachay attach hain to delete nahi — pehle bachay delete/transfer karein
+        if($user->user_type == 'parent' && \App\Models\StudentRecord::where('my_parent_id', $id)->count() > 0) {
+            return back()->with('pop_error', 'Is parent ke bachay system me mojood hain. Pehle un bachon ko delete karein ya doosray parent se attach karein, phir parent delete hoga.');
+        }
+
+        // Staff ki salary history hai to delete nahi (hisab ki hifazat)
+        if(in_array($user->user_type, ['teacher', 'admin', 'accountant']) && \App\Models\SalaryPayment::where('user_id', $id)->count() > 0) {
+            return back()->with('pop_error', 'Is staff ki salary history mojood hai — salary records ki wajah se delete nahi ho sakta (hisab ki hifazat).');
+        }
+
         $path = Qs::getUploadPath($user->user_type).$user->code;
         Storage::exists($path) ? Storage::deleteDirectory($path) : true;
+        \App\Models\StaffRecord::where('user_id', $user->id)->delete();
         $this->user->delete($user->id);
 
         return back()->with('flash_success', __('msg.del_ok'));

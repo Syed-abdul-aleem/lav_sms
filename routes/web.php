@@ -147,8 +147,19 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('pay/{pr_id}', 'StudentFeeController@pay')->name('student_fees.pay');
             Route::post('update/{payment_id}', 'StudentFeeController@updateFee')->name('student_fees.update');
             Route::delete('fee/{payment_id}', 'StudentFeeController@destroyFee')->name('student_fees.destroy');
+            Route::delete('receipt/{receipt_id}', 'StudentFeeController@destroyReceipt')->name('student_fees.receipt_destroy');
             Route::get('student/{student_id}/slip', 'StudentFeeController@slip')->name('student_fees.slip');
             Route::get('student/{student_id}/pdf', 'StudentFeeController@pdfSlip')->name('student_fees.pdf');
+        });
+
+        /*************** Results (Easy) *****************/
+        Route::group(['prefix' => 'results'], function(){
+            Route::get('/', 'ResultController@index')->name('results.index');
+            Route::post('exam', 'ResultController@examStore')->name('results.exam_store');
+            Route::get('entry', 'ResultController@entry')->name('results.entry');
+            Route::post('entry', 'ResultController@entryStore')->name('results.entry_store');
+            Route::get('class', 'ResultController@classResult')->name('results.class');
+            Route::get('class/print', 'ResultController@classPrint')->name('results.class_print');
         });
 
         /*************** Pins *****************/

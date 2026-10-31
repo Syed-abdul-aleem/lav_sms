@@ -8,6 +8,12 @@
                 <img style="width: 90%; height:90%" src="{{ $sr->user->photo }}" alt="photo" class="rounded-circle">
                 <br>
                 <h3 class="mt-3">{{ $sr->user->name }}</h3>
+                @if(Qs::userIsSuperAdmin())
+                <hr>
+                <a id="{{ Qs::hash($sr->user->id) }}" onclick="confirmDelete(this.id)" href="#" class="btn btn-outline-danger btn-sm"><i class="icon-trash"></i> Delete Student</a>
+                <form method="post" id="item-delete-{{ Qs::hash($sr->user->id) }}" action="{{ route('students.destroy', Qs::hash($sr->user->id)) }}" class="hidden">@csrf @method('delete')</form>
+                <p class="text-muted mt-2 mb-0"><small>Note: agar is student ki fee jama hui hai to delete pehle block hoga — pehle receipts delete karein.</small></p>
+                @endif
             </div>
         </div>
     </div>

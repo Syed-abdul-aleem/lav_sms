@@ -247,6 +247,37 @@
         </div>
     </div>
 
+    @if($all_receipts->count())
+    <div class="card">
+        <div class="card-header bg-white header-elements-inline">
+            <h6 class="card-title font-weight-bold"><i class="icon-cash3 mr-2"></i> Jama Shuda Fees — Receipts History</h6>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-sm table-hover">
+                <thead><tr><th>Tareekh</th><th>Fee</th><th class="text-right">Jama (Rs)</th>@if($staff)<th class="text-right">Action</th>@endif</tr></thead>
+                <tbody>
+                @foreach($all_receipts as $rc)
+                    <tr>
+                        <td>{{ $rc->created_at ? $rc->created_at->format('d M Y') : '—' }}</td>
+                        <td>{{ $rc->pr && $rc->pr->payment ? $rc->pr->payment->title : 'Fee' }}</td>
+                        <td class="text-right text-success font-weight-bold">{{ number_format($rc->amt_paid) }}</td>
+                        @if($staff)
+                        <td class="text-right">
+                            <form method="post" action="{{ route('student_fees.receipt_destroy', $rc->id) }}" onsubmit="return confirm('Ye receipt delete kar dein? Jama shuda raqam wapas baqaya me aa jayegi aur hisab khud theek ho jayega.');" class="d-inline">
+                                @csrf @method('delete')
+                                <button type="submit" class="btn btn-sm btn-outline-danger"><i class="icon-trash"></i> Delete</button>
+                            </form>
+                        </td>
+                        @endif
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer bg-white"><small class="text-muted">Ghalti se fee jama ho jaye to yahan se receipt delete kar dein — baqaya khud dobara ban jayega.</small></div>
+    </div>
+    @endif
+
 @endsection
 
 @section('scripts')

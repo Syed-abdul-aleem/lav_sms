@@ -71,6 +71,9 @@ class SubjectController extends Controller
 
     public function destroy($id)
     {
+        if (\App\Models\Mark::where('subject_id', $id)->count() > 0) {
+            return back()->with('pop_error', 'Is subject ke marks mojood hain — results ki hifazat ke liye subject delete nahi ho sakta.');
+        }
         $this->my_class->deleteSubject($id);
         return back()->with('flash_success', __('msg.del_ok'));
     }

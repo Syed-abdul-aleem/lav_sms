@@ -194,6 +194,11 @@
                     <a href="#" class="nav-link"><i class="icon-books"></i> <span> Exams</span></a>
 
                     <ul class="nav nav-group-sub" data-submenu-title="Manage Exams">
+                        @if(Qs::userIsTeamSAT())
+                            <li class="nav-item">
+                                <a href="{{ route('results.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['results.index', 'results.entry', 'results.class']) ? 'active' : '' }}"><strong>Results (Easy)</strong></a>
+                            </li>
+                        @endif
                         @if(Qs::userIsTeamSA())
 
                         {{--Exam list--}}
@@ -213,25 +218,8 @@
                                 <a href="{{ route('marks.tabulation') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['marks.tabulation']) ? 'active' : '' }}">Tabulation Sheet</a>
                             </li>
 
-                            {{--Marks Batch Fix--}}
-                            <li class="nav-item">
-                                <a href="{{ route('marks.batch_fix') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['marks.batch_fix']) ? 'active' : '' }}">Batch Fix</a>
-                            </li>
                         @endif
 
-                        @if(Qs::userIsTeamSAT())
-                            {{--Marks Manage--}}
-                            <li class="nav-item">
-                                <a href="{{ route('marks.index') }}"
-                                   class="nav-link {{ in_array(Route::currentRouteName(), ['marks.index']) ? 'active' : '' }}">Marks</a>
-                            </li>
-
-                            {{--Marksheet--}}
-                            <li class="nav-item">
-                                <a href="{{ route('marks.bulk') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['marks.bulk', 'marks.show']) ? 'active' : '' }}">Marksheet</a>
-                            </li>
-
-                            @endif
 
                     </ul>
                 </li>

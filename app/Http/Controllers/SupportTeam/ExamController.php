@@ -63,6 +63,9 @@ class ExamController extends Controller
 
     public function destroy($id)
     {
+        if (\App\Models\Mark::where('exam_id', $id)->count() > 0) {
+            return back()->with('pop_error', 'Is exam ke marks mojood hain — results ki hifazat ke liye exam delete nahi ho sakta.');
+        }
         $this->exam->delete($id);
         return back()->with('flash_success', __('msg.del_ok'));
     }

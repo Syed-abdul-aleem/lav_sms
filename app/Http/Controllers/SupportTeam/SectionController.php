@@ -74,6 +74,10 @@ class SectionController extends Controller
             return back()->with('pop_warning', 'Every class must have a default section, You Cannot Delete It');
         }
 
+        if (\App\Models\StudentRecord::where('section_id', $id)->count() > 0) {
+            return back()->with('pop_error', 'Is section me students mojood hain — pehle unhe move/delete karein, phir section delete hogi.');
+        }
+
         $this->my_class->deleteSection($id);
         return back()->with('flash_success', __('msg.del_ok'));
     }
