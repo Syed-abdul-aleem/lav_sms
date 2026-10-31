@@ -107,6 +107,14 @@
                                     </div>
                                 </div>
 
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Monthly Salary (Rs) — kitni pay par rakha hai:</label>
+                                        <input name="salary" value="{{ old('salary') }}" type="number" min="0" class="form-control" placeholder="e.g. 45000">
+                                        <span class="form-text text-muted">Staff ki tay shuda mahana tankhwah. Salaries section me har month ki payment is se khud bhar jayegi.</span>
+                                    </div>
+                                </div>
+
                                     </div>
                                 </div>
 

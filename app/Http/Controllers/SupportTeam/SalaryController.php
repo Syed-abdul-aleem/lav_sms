@@ -8,12 +8,14 @@ use App\Models\SalaryPayment;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class SalaryController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
+        \App\Models\StaffRecord::ensureSalaryColumn();
     }
 
     private function canManage()
@@ -81,6 +83,18 @@ class SalaryController extends Controller
         $data['payments'] = SalaryPayment::where('user_id', Auth::id())->orderByDesc('month')->orderByDesc('id')->get();
         $data['user'] = Auth::user();
         return view('pages.support_team.salaries.my_salary', $data);
+    }
+
+    /** Salary slip — PDF download (WhatsApp par share karne ke liye) */
+    public function pdfSlip($salary_id)
+    {
+        $p = SalaryPayment::with('user')->findOrFail($salary_id);
+        if (!$this->canManage() && (int)$p->user_id !== (int)Auth::id()) { abort(403); }
+        $data['p'] = $p;
+        $data['sr'] = $p->user->staff->first();
+        $data['pdf_mode'] = true;
+        $name = 'SalarySlip_' . str_replace(' ', '_', $p->user->name) . '_' . $p->month;
+        return PDF::loadView('pages.support_team.salaries.slip', $data)->download($name . '.pdf');
     }
 
     public function slip($salary_id)

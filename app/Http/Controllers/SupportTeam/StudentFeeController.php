@@ -312,6 +312,52 @@ class StudentFeeController extends Controller
         return back()->with('flash_success', 'Fee jama ho gayi — Rs ' . number_format((int) $req->amt_paid) . '. Baqaya: Rs ' . number_format(max($bal, 0)) . '.');
     }
 
+    /**
+     * Individual fee EDIT — sirf woh fee jo sirf is student ki hai
+     * (class fees yahan se edit nahi hoti, woh poori class ko affect karti hain).
+     * Hisab khud theek ho jata hai: baqaya = nayi fee - ada shuda.
+     */
+    public function updateFee(Request $req, $payment_id)
+    {
+        $payment = Payment::find($payment_id);
+        if (!$payment || !$payment->student_id) {
+            return back()->with('pop_error', 'Ye fee edit nahi ho sakti — sirf individual (sirf is student ki) fees edit hoti hain.');
+        }
+        $pr = PaymentRecord::where('payment_id', $payment->id)
+            ->where('student_id', $payment->student_id)->first();
+        if (!$pr) { return back()->with('pop_error', __('msg.rnf')); }
+
+        $paidAmt = (int) ($pr->amt_paid ?: 0);
+        $this->validate($req, [
+            'title'  => 'required|string|max:120',
+            'amount' => 'required|integer|min:' . max($paidAmt, 1),
+        ], ['amount.min' => 'Nayi fee ada shuda raqam (Rs ' . number_format($paidAmt) . ') se kam nahi ho sakti.'],
+           ['title' => 'Fee Title', 'amount' => 'Amount']);
+
+        $payment->update(['title' => $req->title, 'amount' => (int) $req->amount]);
+        $bal = (int) $req->amount - $paidAmt;
+        $pr->update(['balance' => $bal, 'paid' => $bal < 1 ? 1 : 0]);
+
+        return back()->with('flash_success', 'Fee edit ho gayi — ' . $req->title . ': Rs ' . number_format((int) $req->amount) . '. Baqaya: Rs ' . number_format(max($bal, 0)) . '.');
+    }
+
+    /** Individual fee DELETE — sirf tab jab koi adaigi na hui ho */
+    public function destroyFee($payment_id)
+    {
+        $payment = Payment::find($payment_id);
+        if (!$payment || !$payment->student_id) {
+            return back()->with('pop_error', 'Ye fee delete nahi ho sakti — sirf individual fees delete hoti hain.');
+        }
+        $pr = PaymentRecord::where('payment_id', $payment->id)
+            ->where('student_id', $payment->student_id)->first();
+        if ($pr && (int) ($pr->amt_paid ?: 0) > 0) {
+            return back()->with('pop_error', 'Is fee ki adaigi ho chuki hai — delete nahi ho sakti. Zaroorat ho to amount edit kar lein.');
+        }
+        if ($pr) { $pr->delete(); }
+        $payment->delete();
+        return back()->with('flash_success', 'Fee delete ho gayi.');
+    }
+
     /* ---------------- slip (shareable) ---------------- */
 
     protected function slipData($student_id)

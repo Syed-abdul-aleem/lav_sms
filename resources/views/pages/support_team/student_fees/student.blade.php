@@ -176,7 +176,9 @@
                     <tr>
                         <td class="font-weight-bold">
                             {{ $r->payment ? $r->payment->title : 'Fee' }}
-                            @if($r->payment && $r->payment->student_id)<br><span class="badge badge-info">Individual</span>@endif
+                            @if($r->payment && $r->payment->student_id)<br><span class="badge badge-info">Individual</span>
+                                @if($staff)<button type="button" class="btn btn-xs btn-outline-primary ml-1" onclick="toggleFeeEdit({{ $r->payment_id }})"><i class="icon-pencil7"></i> Edit</button>@endif
+                            @endif
                         </td>
                         <td>{{ $r->payment && $r->payment->created_at ? $r->payment->created_at->format('d M Y') : '—' }}</td>
                         <td class="text-right">{{ number_format($amount) }}</td>
@@ -204,6 +206,28 @@
                             <a href="{{ route('payments.receipts', Qs::hash($r->id)) }}" class="btn btn-sm btn-light">Receipts</a>
                         </td>
                     </tr>
+                    @if($staff && $r->payment && $r->payment->student_id)
+                    <tr id="fee-edit-{{ $r->payment_id }}" style="display:none;background:#fcfbf5">
+                        <td colspan="8">
+                            <form method="post" action="{{ route('student_fees.update', $r->payment_id) }}" class="form-inline" style="gap:8px;flex-wrap:wrap">
+                                @csrf
+                                <span class="font-weight-bold mr-1">Fee Edit:</span>
+                                <input type="text" name="title" class="form-control form-control-sm" value="{{ $r->payment->title }}" required maxlength="120" style="width:230px">
+                                <input type="number" name="amount" class="form-control form-control-sm" value="{{ $amount }}" required min="{{ max($paidAmt, 1) }}" style="width:130px">
+                                <button type="submit" class="btn btn-sm btn-primary">Save</button>
+                                <span class="text-muted"><small>Baqaya khud update ho jayega (nayi fee − ada shuda Rs {{ number_format($paidAmt) }}).</small></span>
+                            </form>
+                            @if($paidAmt == 0)
+                            <form method="post" action="{{ route('student_fees.destroy', $r->payment_id) }}" class="mt-2" onsubmit="return confirm('Ye fee delete kar dein? Ye sirf is student ke khate se jayegi.')">
+                                @csrf @method('delete')
+                                <button type="submit" class="btn btn-sm btn-outline-danger"><i class="icon-trash"></i> Ye Fee Delete Karein</button>
+                            </form>
+                            @else
+                            <div class="text-muted mt-2"><small>Is fee ki adaigi ho chuki hai — delete nahi ho sakti, sirf amount/title edit ho sakta hai.</small></div>
+                            @endif
+                        </td>
+                    </tr>
+                    @endif
                 @empty
                     <tr><td colspan="{{ $staff ? 8 : 7 }}" class="text-center text-muted">Abhi is student ki koi fee nahi. @if($staff)Upar wale form se pehli fee add karein.@endif</td></tr>
                 @endforelse
@@ -228,6 +252,10 @@
 @section('scripts')
     @parent
     <script>
+        function toggleFeeEdit(id) {
+            var row = document.getElementById('fee-edit-' + id);
+            if (row) { row.style.display = row.style.display === 'none' ? '' : 'none'; }
+        }
         // Mahina chuna ho to fee title ke sath khud lag jata hai, e.g. "Monthly Fee — November 2026"
         document.getElementById('addFeeForm') && document.getElementById('addFeeForm').addEventListener('submit', function () {
             var m = document.getElementById('feeMonth');

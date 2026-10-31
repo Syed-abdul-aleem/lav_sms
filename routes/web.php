@@ -52,6 +52,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('{salary_id}', 'SalaryController@destroy')->name('salaries.destroy');
         Route::get('my', 'SalaryController@mySalary')->name('salaries.my');
         Route::get('{salary_id}/slip', 'SalaryController@slip')->name('salaries.slip');
+        Route::get('{salary_id}/pdf', 'SalaryController@pdfSlip')->name('salaries.pdf');
     });
 
     Route::group(['prefix' => 'my_account'], function() {
@@ -144,6 +145,8 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('student/{student_id}', 'StudentFeeController@student')->name('student_fees.student');
             Route::post('add', 'StudentFeeController@storeFee')->name('student_fees.add');
             Route::post('pay/{pr_id}', 'StudentFeeController@pay')->name('student_fees.pay');
+            Route::post('update/{payment_id}', 'StudentFeeController@updateFee')->name('student_fees.update');
+            Route::delete('fee/{payment_id}', 'StudentFeeController@destroyFee')->name('student_fees.destroy');
             Route::get('student/{student_id}/slip', 'StudentFeeController@slip')->name('student_fees.slip');
             Route::get('student/{student_id}/pdf', 'StudentFeeController@pdfSlip')->name('student_fees.pdf');
         });

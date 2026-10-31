@@ -79,6 +79,14 @@
                                 </div>
                             </div>
 
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Monthly Salary (Rs) — kitni pay par rakha hai:</label>
+                                    <input autocomplete="off" name="salary" value="{{ $user->staff->first()->salary ?? '' }}" type="number" min="0" class="form-control" placeholder="e.g. 45000">
+                                    <span class="form-text text-muted">Tay shuda mahana tankhwah — Salaries section isay khud istemal karega.</span>
+                                </div>
+                            </div>
+
                                 </div>
                             </div>
                         @endif

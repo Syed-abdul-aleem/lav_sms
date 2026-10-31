@@ -10,7 +10,7 @@
             <tbody>
             @forelse($payments as $p)
                 <tr><td>{{ $p->receipt_no }}</td><td>{{ $p->month }}</td><td>{{ number_format($p->basic) }}</td><td>{{ number_format($p->allowances) }}</td><td>{{ number_format($p->deductions) }}</td><td class="font-weight-bold">{{ number_format($p->net) }}</td><td class="text-success">{{ number_format($p->amt_paid) }}</td><td>{{ number_format($p->balance) }}</td><td>{{ $p->paid_on ? $p->paid_on->format('d M Y') : '-' }}</td>
-                <td><a target="_blank" href="{{ route('salaries.slip', $p->id) }}" class="btn btn-sm btn-outline-secondary">Print Slip</a></td></tr>
+                <td><a target="_blank" href="{{ route('salaries.slip', $p->id) }}" class="btn btn-sm btn-outline-secondary">Print Slip</a> <a href="{{ route('salaries.pdf', $p->id) }}" class="btn btn-sm btn-outline-danger">PDF</a></td></tr>
             @empty
                 <tr><td colspan="10" class="text-center">No salary records yet.</td></tr>
             @endforelse

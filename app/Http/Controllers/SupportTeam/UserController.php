@@ -23,6 +23,7 @@ class UserController extends Controller
         $this->middleware('teamSA', ['only' => ['index', 'store', 'edit', 'update'] ]);
         $this->middleware('super_admin', ['only' => ['reset_pass','destroy'] ]);
 
+        \App\Models\StaffRecord::ensureSalaryColumn();
         $this->user = $user;
         $this->loc = $loc;
         $this->my_class = $my_class;
@@ -108,6 +109,7 @@ class UserController extends Controller
         /* CREATE STAFF RECORD */
         if($user_is_staff){
             $d2 = $req->only(Qs::getStaffRecord());
+            $d2['salary'] = isset($d2['salary']) && $d2['salary'] !== '' ? (int) $d2['salary'] : null;
             $d2['user_id'] = $user->id;
             $d2['code'] = $staff_id;
             $this->user->createStaffRecord($d2);
@@ -155,6 +157,7 @@ class UserController extends Controller
         /* UPDATE STAFF RECORD */
         if($user_is_staff){
             $d2 = $req->only(Qs::getStaffRecord());
+            $d2['salary'] = isset($d2['salary']) && $d2['salary'] !== '' ? (int) $d2['salary'] : null;
             $d2['code'] = $data['username'];
             $this->user->updateStaffRecord(['user_id' => $id], $d2);
         }
