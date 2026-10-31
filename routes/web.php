@@ -137,6 +137,17 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('pay_now/{id}', 'PaymentController@pay_now')->name('payments.pay_now');
         });
 
+        /*************** Student Fees (Easy) *****************/
+        Route::group(['prefix' => 'student-fees'], function(){
+            Route::get('/', 'StudentFeeController@index')->name('student_fees.index');
+            Route::get('class/{class_id}', 'StudentFeeController@classShow')->name('student_fees.class');
+            Route::get('student/{student_id}', 'StudentFeeController@student')->name('student_fees.student');
+            Route::post('add', 'StudentFeeController@storeFee')->name('student_fees.add');
+            Route::post('pay/{pr_id}', 'StudentFeeController@pay')->name('student_fees.pay');
+            Route::get('student/{student_id}/slip', 'StudentFeeController@slip')->name('student_fees.slip');
+            Route::get('student/{student_id}/pdf', 'StudentFeeController@pdfSlip')->name('student_fees.pdf');
+        });
+
         /*************** Pins *****************/
         Route::group(['prefix' => 'pins'], function(){
             Route::get('create', 'PinController@create')->name('pins.create');

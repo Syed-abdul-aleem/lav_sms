@@ -205,6 +205,10 @@ class PaymentController extends Controller
         if($payments->count() && $students->count()){
             foreach($payments as $p){
                 foreach($students as $st){
+                    /* Individual fees (Student Fees section) belong to one student only */
+                    if(!empty($p->student_id) && (int) $p->student_id !== (int) $st->user_id){
+                        continue;
+                    }
                     $pr['student_id'] = $st->user_id;
                     $pr['payment_id'] = $p->id;
                     $pr['year'] = $this->year;
